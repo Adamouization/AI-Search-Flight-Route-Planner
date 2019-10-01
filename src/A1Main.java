@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class A1Main {
 
     public static void main(String[] args) {
@@ -37,14 +35,16 @@ public class A1Main {
             startPoint[0] = Integer.parseInt(args[3].split(",")[0]);
             startPoint[1] = Integer.parseInt(args[3].split(",")[1]);
 
+            Problem problem = new Problem(searchAlgorithm, N, startPoint, endPoint);
+
+            // Debugging: print command line arguments.
+            problem.printArguments();
+
         }
         // Invalid number of arguments
         else {
             errorMessage();
         }
-
-        // Debugging: print command line arguments.
-         printArguments(searchAlgorithm, N, startPoint, endPoint);
 
         // todo - step 2: save into a data structure called [Problem]
 
@@ -61,21 +61,6 @@ public class A1Main {
     public static void errorMessage() {
         System.err.println("usage: java A1main <DFS|BFS|AStar|BestF|...> <N> <d_s,angle_s> <d_g,angle_g> [params]");
         System.exit(1); // System exit with an error code.
-    }
-
-    /**
-     * Prints the command line arguments passed to the program. Used for debugging purposes.
-     *
-     * @param searchAlgorithm:
-     * @param N:
-     * @param startPoint:
-     * @param endPoint:
-     */
-    public static void printArguments(String searchAlgorithm, int N, int[] startPoint, int[] endPoint) {
-        System.out.println("Type of search algorithm: " + searchAlgorithm);
-        System.out.println("Size of world N: " + N);
-        System.out.println("Start point: " + Arrays.toString(startPoint));
-        System.out.println("End point: " + Arrays.toString(endPoint));
     }
 
 }
