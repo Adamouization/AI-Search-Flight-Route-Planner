@@ -39,15 +39,17 @@ public class A1Main {
             }
 
             // Parse start goal point.
-            int[] startPoint = new int[2];
-            startPoint[0] = Integer.parseInt(args[2].split(",")[0]);
-            startPoint[1] = Integer.parseInt(args[2].split(",")[1]);
+            int[] startPoint = new int[]{
+                    Integer.parseInt(args[2].split(",")[0]),
+                    Integer.parseInt(args[2].split(",")[1])
+            };
             problem.setStartPoint(startPoint);
 
             // Parse end goal point.
-            int[] endPoint = new int[2];
-            endPoint[0] = Integer.parseInt(args[3].split(",")[0]);
-            endPoint[1] = Integer.parseInt(args[3].split(",")[1]);
+            int[] endPoint = new int[]{
+                    Integer.parseInt(args[3].split(",")[0]),
+                    Integer.parseInt(args[3].split(",")[1])
+            };
             problem.setEndPoint(endPoint);
 
             // Debugging: print command line arguments.
