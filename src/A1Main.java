@@ -9,44 +9,45 @@ public class A1Main {
 
     /**
      * Program entry point. Parses command line input.
-     * @param args: command line arguments.
+     * @param args command line arguments.
      */
     public static void main(String[] args) {
 
         // Declare and initialise variables.
-        int N = 0;
-        String searchAlgorithm = "";
-        int[] startPoint = new int[2];
-        int[] endPoint = new int[2];
+        Problem problem = new Problem();
 
         // Parse command line arguments.
         if (args.length == 4) {
 
             // Type of search algorithm to use.
-            searchAlgorithm = args[0];
+            problem.setSearchAlgorithm(args[0]);
 
             // World size - check that it is a valid Integer.
             try {
-                N = Integer.parseInt(args[1]);
+                int N = Integer.parseInt(args[1]);
+                // Check that it is a positive Integer.
+                if (N > 0) {
+                    problem.setN(N);
+                }
+                else {
+                    errorMessage();
+                }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 errorMessage();
             }
 
-            // World size - check that it is a positive Integer.
-            if (N < 0) {
-                errorMessage();
-            }
-
-            // Parse start goal node.
+            // Parse start goal point.
+            int[] startPoint = new int[2];
             startPoint[0] = Integer.parseInt(args[2].split(",")[0]);
             startPoint[1] = Integer.parseInt(args[2].split(",")[1]);
+            problem.setStartPoint(startPoint);
 
-            // Parse end goal node.
-            startPoint[0] = Integer.parseInt(args[3].split(",")[0]);
-            startPoint[1] = Integer.parseInt(args[3].split(",")[1]);
-
-            Problem problem = new Problem(searchAlgorithm, N, startPoint, endPoint);
+            // Parse end goal point.
+            int[] endPoint = new int[2];
+            endPoint[0] = Integer.parseInt(args[3].split(",")[0]);
+            endPoint[1] = Integer.parseInt(args[3].split(",")[1]);
+            problem.setEndPoint(endPoint);
 
             // Debugging: print command line arguments.
             problem.printArguments();

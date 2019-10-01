@@ -12,23 +12,8 @@ public class Problem {
     // Declare variables.
     private int N;
     private String searchAlgorithm;
-    private int[] startPoint = new int[2];
-    private int[] endPoint = new int[2];
-
-    /**
-     * Class constructor.
-     *
-     * @param searchAlgorithm The type of search algorithm to use.
-     * @param N The size of the world (number of parallels on the planet).
-     * @param startPoint The start point of the search.
-     * @param endPoint The goal point of the search.
-     */
-    public Problem(String searchAlgorithm, int N, int[] startPoint, int[] endPoint) {
-        this.searchAlgorithm = searchAlgorithm;
-        this.N = N;
-        this.startPoint = startPoint;
-        this.endPoint = endPoint;
-    }
+    private int[] startPoint;
+    private int[] endPoint;
 
     /**
      * Prints the command line arguments passed to the program. Used for debugging purposes.
