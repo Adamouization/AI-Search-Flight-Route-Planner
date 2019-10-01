@@ -1,5 +1,16 @@
+/**
+ *
+ * Contains the program entry point. Parses the command line arguments.
+ *
+ * @author adam jaamour (agj6)
+ *
+ */
 public class A1Main {
 
+    /**
+     * Program entry point. Parses command line input.
+     * @param args: command line arguments.
+     */
     public static void main(String[] args) {
 
         // Declare and initialise variables.
@@ -45,8 +56,6 @@ public class A1Main {
         else {
             errorMessage();
         }
-
-        // todo - step 2: save into a data structure called [Problem]
 
         // todo - step 3: represent world
 
