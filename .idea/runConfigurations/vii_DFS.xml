@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="vii DFS" type="Application" factoryName="Application" folderName="DFS">
+    <option name="MAIN_CLASS_NAME" value="A1Main" />
+    <module name="CS5011-A1-Search-Flight-Route-Planner" />
+    <option name="PROGRAM_PARAMETERS" value="DFS 8 6,270 0,45" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
