@@ -14,13 +14,14 @@ public class A1Main {
     public static void main(String[] args) {
 
         // Declare and initialise variables.
+        String searchType = "";
         Problem problem = new Problem();
 
         // Parse command line arguments.
         if (args.length == 4) {
 
             // Type of search algorithm to use.
-            problem.setSearchAlgorithm(args[0]);
+            searchType = args[0];
 
             // World size - check that it is a valid Integer.
             try {
@@ -50,6 +51,7 @@ public class A1Main {
             problem.setEndPoint(endPoint);
 
             // Debugging: print command line arguments.
+            System.out.println("Search type: " + searchType);
             problem.printArguments();
 
         }
