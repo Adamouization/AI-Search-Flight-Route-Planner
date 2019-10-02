@@ -90,14 +90,14 @@ public class A1Main {
             world.add(parallel);
         }
 
+        // todo - step 4: initialise search algorithm with start/goal and algorithm
+
         // Add Start and Goal points on the world.
         world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setState('S');
         world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setState('G');
 
         // Print the entire world.
         Helper.printWorld(world);
-
-        // todo - step 4: initialise search algorithm with start/goal and algorithm
 
         // todo - step 5: start the search
     }
