@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  *
  * Problem data structure.
@@ -11,16 +9,16 @@ public class Problem {
 
     // Declare variables.
     private int N;
-    private int[] startPoint;
-    private int[] endPoint;
+    private Point startPoint;
+    private Point endPoint;
 
     /**
      * Prints the command line arguments passed to the program. Used for debugging purposes.
      */
     public void printArguments() {
         System.out.println("Size of world N: " + N);
-        System.out.println("Start point: " + Arrays.toString(startPoint));
-        System.out.println("End point: " + Arrays.toString(endPoint));
+        System.out.println("Start point: " + startPoint);
+        System.out.println("End point: " + endPoint);
     }
 
     /**
@@ -33,14 +31,14 @@ public class Problem {
     /**
      * @return The starting point of the search.
      */
-    public int[] getStartPoint() {
+    public Point getStartPoint() {
         return startPoint;
     }
 
     /**
      * @return The goal point of the search.
      */
-    public int[] getEndPoint() {
+    public Point getEndPoint() {
         return endPoint;
     }
 
@@ -54,14 +52,14 @@ public class Problem {
     /**
      * @param startPoint The start point of the search.
      */
-    public void setStartPoint(int[] startPoint) {
+    public void setStartPoint(Point startPoint) {
         this.startPoint = startPoint;
     }
 
     /**
      * @param endPoint The goal point of the search.
      */
-    public void setEndPoint(int[] endPoint) {
+    public void setEndPoint(Point endPoint) {
         this.endPoint = endPoint;
     }
 }

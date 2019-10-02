@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 /**
  *
  * Contains the program entry point. Parses the command line arguments.
@@ -16,6 +18,7 @@ public class A1Main {
         // Declare and initialise variables.
         String searchType = "";
         Problem problem = new Problem();
+        LinkedList<LinkedList<Point>> world;
 
         // Parse command line arguments.
         if (args.length == 4) {
@@ -31,50 +34,72 @@ public class A1Main {
                     problem.setN(N);
                 }
                 else {
-                    errorMessage();
+                    Helper.errorMessage();
                 }
             } catch (NumberFormatException e) {
                 e.printStackTrace();
-                errorMessage();
+                Helper.errorMessage();
             }
 
-            // Parse start goal point.
-            int[] startPoint = new int[]{
-                    Integer.parseInt(args[2].split(",")[0]),
-                    Integer.parseInt(args[2].split(",")[1])
-            };
-            problem.setStartPoint(startPoint);
+            // Parse and add start point to problem.
+            problem.setStartPoint(
+                    new Point(
+                            Integer.parseInt(args[2].split(",")[0]),
+                            Helper.getPointIndex(Integer.parseInt(args[2].split(",")[1])),
+                            Integer.parseInt(args[2].split(",")[1]),
+                            'S'
+                    )
+            );
 
-            // Parse end goal point.
-            int[] endPoint = new int[]{
-                    Integer.parseInt(args[3].split(",")[0]),
-                    Integer.parseInt(args[3].split(",")[1])
-            };
-            problem.setEndPoint(endPoint);
+            // Parse and add goal point to problem.
+            problem.setEndPoint(
+                    new Point(
+                            Integer.parseInt(args[3].split(",")[0]),
+                            Helper.getPointIndex(Integer.parseInt(args[3].split(",")[1])),
+                            Integer.parseInt(args[3].split(",")[1]),
+                            'G'
+                    )
+            );
 
             // Debugging: print command line arguments.
             System.out.println("Search type: " + searchType);
             problem.printArguments();
 
         }
-        // Invalid number of arguments
+        // Invalid number of arguments.
         else {
-            errorMessage();
+            Helper.errorMessage();
         }
 
-        // todo - step 3: represent world
+        // Represent the world, made up of N parallels, each made up of 8 meridians/angles.
+        world = new LinkedList<>();
+        LinkedList<Point> parallel = new LinkedList<>();
+
+        // Add the pole.
+        parallel.add(new Point(0, 0, 0, 'P'));
+        world.add(parallel);
+
+        // Add the other parallels.
+        for (int i = 1; i < problem.getN() + 1; i++) {
+            parallel = new LinkedList<>();
+            int index = 0;
+            for (int j = 0; j <= 315; j += 45) {
+                parallel.add(new Point(i , index, j, 'E'));
+                index++;
+            }
+            world.add(parallel);
+        }
+
+        // Add Start and Goal points on the world.
+        world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setState('S');
+        world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setState('G');
+
+        // Print the entire world.
+        Helper.printWorld(world);
 
         // todo - step 4: initialise search algorithm with start/goal and algorithm
 
         // todo - step 5: start the search
-    }
-
-    /**
-     * Prints an error message to the command line and terminates the program with an error code.
-     */
-    public static void errorMessage() {
-        System.err.println("usage: java A1main <DFS|BFS|AStar|BestF|...> <N> <d_s,angle_s> <d_g,angle_g> [params]");
-        System.exit(1); // System exit with an error code.
     }
 
 }
