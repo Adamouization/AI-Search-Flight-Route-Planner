@@ -2,7 +2,7 @@
   <configuration default="false" name="simple" type="Application" factoryName="Application" folderName="Tests">
     <option name="MAIN_CLASS_NAME" value="A1Main" />
     <module name="CS5011-A1-Search-Flight-Route-Planner" />
-    <option name="PROGRAM_PARAMETERS" value="BFS 3 2,45 3,225" />
+    <option name="PROGRAM_PARAMETERS" value="BFS 4 2,45 3,225" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

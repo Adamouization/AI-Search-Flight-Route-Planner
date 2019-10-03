@@ -80,7 +80,7 @@ public class A1Main {
         world.add(parallel);
 
         // Add the other parallels.
-        for (int i = 1; i < problem.getN() + 1; i++) {
+        for (int i = 1; i < problem.getN(); i++) {
             parallel = new LinkedList<>();
             int index = 0;
             for (int j = 0; j <= 315; j += 45) {
