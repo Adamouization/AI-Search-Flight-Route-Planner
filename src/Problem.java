@@ -9,8 +9,8 @@ public class Problem {
 
     // Declare variables.
     private int N;
-    private Point startPoint;
-    private Point endPoint;
+    private State startPoint;
+    private State endPoint;
 
     /**
      * Prints the command line arguments passed to the program. Used for debugging purposes.
@@ -31,14 +31,14 @@ public class Problem {
     /**
      * @return The starting point of the search.
      */
-    public Point getStartPoint() {
+    public State getStartPoint() {
         return startPoint;
     }
 
     /**
      * @return The goal point of the search.
      */
-    public Point getEndPoint() {
+    public State getEndPoint() {
         return endPoint;
     }
 
@@ -52,14 +52,14 @@ public class Problem {
     /**
      * @param startPoint The start point of the search.
      */
-    public void setStartPoint(Point startPoint) {
+    public void setStartPoint(State startPoint) {
         this.startPoint = startPoint;
     }
 
     /**
      * @param endPoint The goal point of the search.
      */
-    public void setEndPoint(Point endPoint) {
+    public void setEndPoint(State endPoint) {
         this.endPoint = endPoint;
     }
 }

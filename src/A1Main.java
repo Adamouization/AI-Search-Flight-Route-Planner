@@ -18,7 +18,7 @@ public class A1Main {
         // Declare and initialise variables.
         String searchType = "";
         Problem problem = new Problem();
-        LinkedList<LinkedList<Point>> world;
+        LinkedList<LinkedList<State>> world;
 
         // Parse command line arguments.
         if (args.length == 4) {
@@ -43,7 +43,7 @@ public class A1Main {
 
             // Parse and add start point to problem.
             problem.setStartPoint(
-                    new Point(
+                    new State(
                             Integer.parseInt(args[2].split(",")[0]),
                             Helper.getPointIndex(Integer.parseInt(args[2].split(",")[1])),
                             Integer.parseInt(args[2].split(",")[1]),
@@ -53,7 +53,7 @@ public class A1Main {
 
             // Parse and add goal point to problem.
             problem.setEndPoint(
-                    new Point(
+                    new State(
                             Integer.parseInt(args[3].split(",")[0]),
                             Helper.getPointIndex(Integer.parseInt(args[3].split(",")[1])),
                             Integer.parseInt(args[3].split(",")[1]),
@@ -73,10 +73,10 @@ public class A1Main {
 
         // Represent the world, made up of N parallels, each made up of 8 meridians/angles.
         world = new LinkedList<>();
-        LinkedList<Point> parallel = new LinkedList<>();
+        LinkedList<State> parallel = new LinkedList<>();
 
         // Add the pole.
-        parallel.add(new Point(0, 0, 0, 'P'));
+        parallel.add(new State(0, 0, 0, 'P'));
         world.add(parallel);
 
         // Add the other parallels.
@@ -84,7 +84,7 @@ public class A1Main {
             parallel = new LinkedList<>();
             int index = 0;
             for (int j = 0; j <= 315; j += 45) {
-                parallel.add(new Point(i , index, j, 'E'));
+                parallel.add(new State(i , index, j, 'E'));
                 index++;
             }
             world.add(parallel);
@@ -93,8 +93,8 @@ public class A1Main {
         // todo - step 4: initialise search algorithm with start/goal and algorithm
 
         // Add Start and Goal points on the world.
-        world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setState('S');
-        world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setState('G');
+        world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setStatus('S');
+        world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setStatus('G');
 
         // Print the entire world.
         Helper.printWorld(world);
@@ -102,7 +102,7 @@ public class A1Main {
         // todo - step 5: start the search
     }
 
-    public LinkedList<LinkedList<Point>> moveAircraft(LinkedList<LinkedList<Point>> world, char direction) {
+    public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {
         switch (direction) {
             case 'N':
                 // Move towards centre (N -> N-1).

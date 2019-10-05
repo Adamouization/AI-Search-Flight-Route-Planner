@@ -1,17 +1,17 @@
 /**
  *
- * Point data structure.
+ * Data structure representing a state in the world.
  *
  * @author adam jaamour (agj6)
  *
  */
-public class Point {
+public class State {
 
     // Declare variables.
     private int d; // Parallel - can be used as index for outer LinkedList (to identify which parallel).
     private int index; // Index in inner LinkedList (to identify which meridian/angle).
     private int angle; // Meridian.
-    private char state; // States: S for start, G for goal, P for pole.
+    private char status; // Status of the current location: S for start, G for goal, P for pole.
 
     /**
      * Class constructor.
@@ -19,13 +19,13 @@ public class Point {
      * @param d The parallel, which can be used as index for the outer LinkedList.
      * @param index The index in inner LinkedList (to identify which meridian/angle).
      * @param angle The meridian, expressed in degrees.
-     * @param state The possible states for the current point: S for start, G for goal, P for pole.
+     * @param status The possible states for the current point: S for start, G for goal, P for pole.
      */
-    public Point(int d, int index, int angle, char state) {
+    public State(int d, int index, int angle, char status) {
         this.d = d;
         this.index = index;
         this.angle = angle;
-        this.state = state;
+        this.status = status;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Point {
      */
     @Override
     public String toString() {
-        return index + ":(" + this.d + ", " + this.angle + ")=" + this.state;
+        return index + ":(" + this.d + ", " + this.angle + ")=" + this.status;
     }
 
     /**
@@ -62,8 +62,8 @@ public class Point {
     /**
      * @return The possible states for the current point: S for start, G for goal, P for pole.
      */
-    public char getState() {
-        return state;
+    public char getStatus() {
+        return status;
     }
 
     /**
@@ -88,9 +88,9 @@ public class Point {
     }
 
     /**
-     * @param state The possible states for the current point: S for start, G for goal, P for pole.
+     * @param status The possible states for the current point: S for start, G for goal, P for pole.
      */
-    public void setState(char state) {
-        this.state = state;
+    public void setStatus(char status) {
+        this.status = status;
     }
 }

@@ -51,9 +51,9 @@ public class Helper {
      *
      * @param world the current world.
      */
-    public static void printWorld(LinkedList<LinkedList<Point>> world) {
+    public static void printWorld(LinkedList<LinkedList<State>> world) {
         System.out.println("[");
-        for (LinkedList<Point> w: world) {
+        for (LinkedList<State> w: world) {
             System.out.println("    "+ w);
         }
         System.out.println("]");
