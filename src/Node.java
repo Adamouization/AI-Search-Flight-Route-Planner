@@ -1,17 +1,12 @@
 public class Node {
 
-    private int d; // The parallel - part of the state.
-    private int angle; // The meridian - part of the state.
+    private State state; // Includes the parallel and the meridian.
     private String action;
     private Node parentNode;
     private int depth;
 
-    public void setD(int d) {
-        this.d = d;
-    }
-
-    public void setAngle(int angle) {
-        this.angle = angle;
+    public void setState(State state) {
+        this.state = state;
     }
 
     public void setAction(String action) {
@@ -26,12 +21,8 @@ public class Node {
         this.depth = depth;
     }
 
-    public int getD() {
-        return d;
-    }
-
-    public int getAngle() {
-        return angle;
+    public State getState() {
+        return state;
     }
 
     public String getAction() {

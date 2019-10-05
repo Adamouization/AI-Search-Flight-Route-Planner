@@ -19,6 +19,7 @@ public class A1Main {
         String searchType = "";
         Problem problem = new Problem();
         LinkedList<LinkedList<State>> world;
+        LinkedList<Node> frontier = new LinkedList<>();
 
         // Parse command line arguments.
         if (args.length == 4) {
@@ -100,6 +101,8 @@ public class A1Main {
         Helper.printWorld(world);
 
         // todo - step 5: start the search
+        BFS bfs = new BFS();
+        bfs.treeSearch(problem, frontier);
     }
 
     public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {

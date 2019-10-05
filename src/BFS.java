@@ -1,68 +1,65 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 /**
  *
  * Breadth-First Search implementation.
  *
  * @author adam jaamour (agj6)
  *
- * 
  */
 public class BFS extends Search {
 
-    /**
-     * Returns a set of nodes.
-     *
-     * @param problem
-     */
     @Override
-    public void expand(Problem problem) {
-        System.out.println("expand");
-        /*
-        next states ← SUCCESSOR-FN(STATE[node],problem)
-        successors ← empty set
-            for each state in next states
-            if state is not contained in a node of explored or frontier
-                nd ← MAKE-NODE(node,state)
-                add nd to successors
-            end for
-        return successors
-        */
+    public Node treeSearch(Problem problem, LinkedList<Node> frontier) {
+        System.out.println("Starting BFS");
+
+        ArrayList<Node> exploredSet = new ArrayList<>();
+        Node curNode;
+
+        // Create root node and add it to the frontier.
+        Node rootNode = makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle());
+        frontier.add(rootNode);
+
+        while (!frontier.isEmpty()) {
+            curNode = removeFrontierNode(frontier);
+            exploredSet.add(curNode);
+            if (goalTest(curNode, problem.getEndPoint())) {
+                return curNode;
+            }
+            else {
+                insertFrontierNodes(frontier, expand(curNode, problem, frontier));
+            }
+        }
+
+        return null; // If frontier is empty, return null.
     }
 
     @Override
-    public void treeSearch(Problem problem) {
-        System.out.println("treeSearch");
-        /*
-        initial node ← MAKE-NODE(null,initial state)
-        frontier ← INSERT( initial node, frontier)
-        explored ← empty set
-        loop do
-            if frontier is empty return failure
-            nd ← REMOVE(index, frontier)
-            Add nd to explored
-            if GOAL-TEST(STATE[nd], goal)
-                return nd
-            else
-                frontier ← INSERT-ALL (EXPAND(nd, problem, frontier, explored ))
-        end loop
-        */
+    public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier) {
+        ArrayList<State> nextStates = new ArrayList<>();
+        ArrayList<Node> successorsSet = new ArrayList<>();
+
+        nextStates = successor(node.getState(), problem);
+
+        for (State state: nextStates) {
+            if (!(frontier.contains(state))) {
+                node = makeNode(node, node.getState().getD(), node.getState().getAngle());
+                successorsSet.add(node);
+            }
+        }
+        return successorsSet;
     }
 
-    /**
-     * Inserts a new node into the frontier.
-     */
     @Override
-    public void insertFrontierNode() {
-        System.out.println("insertFrontierNode");
+    public LinkedList<Node> insertFrontierNodes(LinkedList<Node> frontier, ArrayList<Node> nodes) {
+        frontier.addAll(nodes); // Add nodes at the end of the queue (FIFO).
+        return frontier;
     }
 
-    /**
-     * Removes a node from the frontier.
-     *
-     * @param index
-     */
     @Override
-    public void removeFrontierNode(int index) {
-        System.out.println("removeFrontierNode");
+    public Node removeFrontierNode(LinkedList<Node> frontier) {
+        return frontier.removeFirst(); // Remove the first node from the queue (FIFO).
     }
 
 }
