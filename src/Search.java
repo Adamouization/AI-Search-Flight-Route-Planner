@@ -29,21 +29,23 @@ abstract class Search {
      */
     public int pathCost(/* State state1, State state2 */) {
         int cost = 0;
-        System.out.println("successor");
+        System.out.println("pathCost");
         return cost;
     }
 
-    public void makeNode() {
-        System.out.println("makeNode");
-        /*
-        n ← a new Node
-        STATE[n] ← state
-        PARENT-NODE[n] ← node
-        ACTION[n] ← move from STATE[node] to state
-        PATH-COST[n] ← PATH-COST[node] + COST(STATE[node],state)
-        DEPTH[n] ← DEPTH[node] +1
-        return n
-        */
+    /**
+     * Creates a new Node.
+     *
+     * @return A new Node.
+     */
+    public Node makeNode(Node curNode, int d, int angle) {
+        Node node = new Node();
+        node.setD(d);
+        node.setAngle(angle);
+        node.setParentNode(curNode);
+        //ACTION[n] ← move from STATE[node] to state
+        node.setDepth(curNode.getDepth() + 1);
+        return node;
     }
 
     /**
