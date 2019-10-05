@@ -31,25 +31,29 @@ abstract class Search {
 
     public Node makeNode(Node curNode, int d, int angle) {
         Node node = new Node();
-        node.setState(
-                new State(
-                        d,
-                        Helper.getPointIndex(angle),
-                        angle,
-                        ' '
-                )
-        );
 
+        // Set node state.
+        node.setState( new State(d, Helper.getPointIndex(angle), angle, ' ') );
+
+        // Set node predecessor.
         try {
             node.setParentNode(curNode);
         }
         catch (NullPointerException e) {
             node.setParentNode(null);
-            System.err.println("curNode is null");
         }
 
+        // Set node's action. todo
         //ACTION[n] ← move from STATE[node] to state
-        node.setDepth(curNode.getDepth() + 1);
+
+        // Set node depth.
+        try {
+            node.setDepth(curNode.getDepth() + 1);
+        }
+        catch (NullPointerException e) {
+            node.setDepth(0);
+        }
+
         return node;
     }
 

@@ -12,8 +12,9 @@ public class BFS extends Search {
 
     @Override
     public Node treeSearch(Problem problem, LinkedList<Node> frontier) {
-        System.out.println("Starting BFS");
+        System.out.println("Starting BFS search");
 
+        // Local variables used throughout the search.
         ArrayList<Node> exploredSet = new ArrayList<>();
         Node curNode;
 
