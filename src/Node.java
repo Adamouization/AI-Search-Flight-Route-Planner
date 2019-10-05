@@ -5,6 +5,11 @@ public class Node {
     private Node parentNode;
     private int depth;
 
+    @Override
+    public String toString() {
+        return this.state.toString();
+    }
+
     public void setState(State state) {
         this.state = state;
     }

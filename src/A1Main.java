@@ -102,7 +102,8 @@ public class A1Main {
 
         // todo - step 5: start the search
         BFS bfs = new BFS();
-        bfs.treeSearch(problem, frontier);
+        Node solution = bfs.treeSearch(problem, frontier);
+        System.out.println(solution);
     }
 
     public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {
