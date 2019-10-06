@@ -12,15 +12,81 @@ abstract class Search {
 
     public ArrayList<State> successor(State state, Problem problem) {
         ArrayList<State> childrenNodes = new ArrayList<>();
-        // find all children nodes - try the 4 directions
+
+        // Move East (H90). If angle = 315 degrees, loop back to 0 degrees.
+        if (state.getAngle() == 315) {
+            childrenNodes.add(
+                    new State(
+                            state.getD(),
+                            0,
+                            0,
+                            state.getStatus()
+                    )
+            );
+        }
+        else {
+            childrenNodes.add(
+                    new State(
+                            state.getD(),
+                            state.getIndex() + 1,
+                            state.getAngle() + 45,
+                            state.getStatus()
+                    )
+            );
+        }
+
+        // Move West (H270). If angle = 0 degrees, loop back to 315 degrees.
+        if (state.getAngle() == 0) {
+            childrenNodes.add(
+                    new State(
+                            state.getD(),
+                            7,
+                            315,
+                            state.getStatus()
+                    )
+            );
+        }
+        else {
+            childrenNodes.add(
+                    new State(
+                            state.getD(),
+                            state.getIndex() - 1,
+                            state.getAngle() - 45,
+                            state.getStatus()
+                    )
+            );
+        }
+
+        // Move North (H360), but cannot go to pole (N=0).
+        if ( !(state.getD() == 1) ) {
+            childrenNodes.add(
+                    new State(
+                            state.getD() - 1,
+                            state.getIndex(),
+                            state.getAngle(),
+                            state.getStatus()
+                    )
+            );
+        }
+
+        // Move South (H180), but cannot go beyond last parallel N.
+        if ( !(state.getD() == problem.getN() - 1) ) {
+            childrenNodes.add(
+                    new State(
+                            state.getD() + 1,
+                            state.getIndex(),
+                            state.getAngle(),
+                            state.getStatus()
+                    )
+            );
+        }
+
+        // Return valid moves.
         return childrenNodes;
     }
 
     public boolean goalTest(Node curPoint, State endPoint) {
-        if (curPoint.equals(endPoint)) {
-            return true;
-        }
-        return false;
+        return curPoint.getState().equals(endPoint);
     }
 
     public int pathCost(/* State state1, State state2 */) {
@@ -59,7 +125,7 @@ abstract class Search {
 
     abstract public Node treeSearch(Problem problem, LinkedList<Node> frontier);
 
-    abstract public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier);
+    abstract public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier, ArrayList<Node> exploredSet);
 
     abstract public LinkedList<Node> insertFrontierNodes(LinkedList<Node> frontier, ArrayList<Node> nodes);
 
