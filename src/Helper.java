@@ -14,10 +14,18 @@ public class Helper {
         if (node.getState().getD() == node.getParentNode().getState().getD()) {
             // Current node angle is bigger than parent node angle, so moved E.
             if (node.getState().getAngle() - node.getParentNode().getState().getAngle() > 0) {
+                // Take care of special case looping from 0 to 315 degrees, which is going W.
+                if (node.getState().getAngle() == 315 && node.getParentNode().getState().getAngle() == 0) {
+                    return "H270";
+                }
                 return "H90";
             }
             // Current node angle is smaller than parent node angle, so moved W.
             else {
+                // Take care of special case looping from 315 to 0 degrees, which is going E.
+                if (node.getState().getAngle() == 0 && node.getParentNode().getState().getAngle() == 315) {
+                    return "H90";
+                }
                 return "H270";
             }
         }
