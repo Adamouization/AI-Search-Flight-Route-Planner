@@ -109,7 +109,7 @@ public class A1Main {
         Node currentNode = bfs.treeSearch(problem, frontier);
 
         // Print out the solution.
-        System.out.println("Flight instructions: todo");
+        System.out.println("Flight instructions: " + bfs.findFlightInstructions(currentNode).toString());
         System.out.println("\nCurrent node: " + currentNode);
         System.out.println("Path followed: " + bfs.findSolutionPath(currentNode).toString());
         System.out.println(bfs.getExploredSet().size() + " states expanded: " + bfs.getExploredSet().toString());

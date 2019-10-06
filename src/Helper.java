@@ -9,6 +9,31 @@ import java.util.LinkedList;
  */
 public class Helper {
 
+    public static String getActionFromState(Node node) {
+        // Same parallel, so different meridian (either E or W).
+        if (node.getState().getD() == node.getParentNode().getState().getD()) {
+            // Current node angle is bigger than parent node angle, so moved E.
+            if (node.getState().getAngle() - node.getParentNode().getState().getAngle() > 0) {
+                return "H90";
+            }
+            // Current node angle is smaller than parent node angle, so moved W.
+            else {
+                return "H270";
+            }
+        }
+        // Different parallel (either N or S).
+        else {
+            // Current node parallel is bigger than parent node parallel, so moved S.
+            if (node.getState().getD() - node.getParentNode().getState().getD() > 0) {
+                return "H180";
+            }
+            // Current node parallel is smaller than parent node parallel, so moved N.
+            else {
+                return "H360";
+            }
+        }
+    }
+
     /**
      * Takes a meridian (angle) and returns its expected (ordered) index in a LinkedList.
      *
@@ -56,7 +81,7 @@ public class Helper {
         for (LinkedList<State> w: world) {
             System.out.println("    "+ w);
         }
-        System.out.println("]");
+        System.out.println("]\n");
     }
 
     public static void printFrontier(LinkedList<Node> frontier) {

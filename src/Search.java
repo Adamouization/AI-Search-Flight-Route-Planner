@@ -111,8 +111,10 @@ abstract class Search {
             node.setParentNode(null);
         }
 
-        // Set node's action. todo
-        //ACTION[n] ← move from STATE[node] to state
+        // Determine and set node's action.
+        if (node.getParentNode() != null) {
+            node.setAction(Helper.getActionFromState(node));
+        }
 
         // Set node depth.
         try {
@@ -134,6 +136,18 @@ abstract class Search {
             n = n.getParentNode();
         }
         return solutionPath;
+    }
+
+    public ArrayList<String> findFlightInstructions(Node goalNode) {
+        ArrayList<String> flightInstruction = new ArrayList<>();
+        Node n = goalNode;
+        flightInstruction.add(n.getAction());
+        while (n.getParentNode() != null) {
+            flightInstruction.add(0, n.getAction());
+            n = n.getParentNode();
+        }
+        flightInstruction.remove(flightInstruction.size() - 1); // Remove last element, invalid action.
+        return flightInstruction;
     }
 
     public ArrayList<Node> getExploredSet() {
