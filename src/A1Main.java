@@ -112,7 +112,7 @@ public class A1Main {
         System.out.println("Flight instructions: todo");
         System.out.println("\nCurrent node: " + currentNode);
         System.out.println("Path followed: " + bfs.findSolutionPath(currentNode).toString());
-        System.out.println("States expanded: todo");
+        System.out.println(bfs.getExploredSet().size() + " states expanded: " + bfs.getExploredSet().toString());
     }
 
     public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {

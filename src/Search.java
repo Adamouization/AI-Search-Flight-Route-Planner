@@ -10,6 +10,8 @@ import java.util.LinkedList;
  */
 abstract class Search {
 
+    private ArrayList<Node> exploredSet = new ArrayList<>();
+
     public ArrayList<State> successor(State state, Problem problem) {
         ArrayList<State> childrenNodes = new ArrayList<>();
 
@@ -132,6 +134,14 @@ abstract class Search {
             n = n.getParentNode();
         }
         return solutionPath;
+    }
+
+    public ArrayList<Node> getExploredSet() {
+        return exploredSet;
+    }
+
+    public void setExploredSet(ArrayList<Node> exploredSet) {
+        this.exploredSet = exploredSet;
     }
 
     abstract public Node treeSearch(Problem problem, LinkedList<Node> frontier);

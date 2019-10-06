@@ -15,8 +15,8 @@ public class BFS extends Search {
         System.out.println("Starting Breadth-First Search...");
 
         // Local variables used throughout the search.
-        ArrayList<Node> exploredSet = new ArrayList<>();
         Node curNode;
+        ArrayList<Node> exploredSet = getExploredSet();
 
         // Create and add the root node to the frontier.
         Helper.printFrontier(frontier);
@@ -29,8 +29,9 @@ public class BFS extends Search {
             curNode = removeFrontierNode(frontier);
             exploredSet.add(curNode);
             if (goalTest(curNode, problem.getEndPoint())) {
+                setExploredSet(exploredSet);
                 Helper.printFrontier(frontier);
-                System.out.println("\nPath found!");
+                System.out.println("\nPath found using BFS!");
                 return curNode;
             }
             else {
