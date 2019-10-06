@@ -29,24 +29,27 @@ public class BFS extends Search {
                 return curNode;
             }
             else {
-                insertFrontierNodes(frontier, expand(curNode, problem, frontier));
+                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
             }
+            System.out.println(frontier.toString());
         }
 
         return null; // If frontier is empty, return null.
     }
 
     @Override
-    public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier) {
-        ArrayList<State> nextStates = new ArrayList<>();
-        ArrayList<Node> successorsSet = new ArrayList<>();
+    public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier, ArrayList<Node> exploredSet) {
 
-        nextStates = successor(node.getState(), problem);
+        // Local variables.
+        ArrayList<Node> successorsSet = new ArrayList<>();
+        Node newNode;
+
+        ArrayList<State> nextStates = successor(node.getState(), problem);
 
         for (State state: nextStates) {
-            if (!(frontier.contains(state))) {
-                node = makeNode(node, node.getState().getD(), node.getState().getAngle());
-                successorsSet.add(node);
+            if (!(frontier.contains(state)) && !(exploredSet.contains(state))) {
+                newNode = makeNode(node, node.getState().getD(), node.getState().getAngle());
+                successorsSet.add(newNode);
             }
         }
         return successorsSet;
