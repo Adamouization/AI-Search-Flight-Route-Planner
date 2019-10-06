@@ -104,12 +104,12 @@ public class A1Main {
         world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setStatus('G');
 
         // Print the entire world.
-        Helper.printWorld(world);
+        //Helper.printWorld(world);
 
         // todo - step 5: start the search
         BFS bfs = new BFS();
         Node solution = bfs.treeSearch(problem, frontier);
-        System.out.println(solution);
+        System.out.println("Current node: " + solution);
     }
 
     public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {

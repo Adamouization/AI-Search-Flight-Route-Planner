@@ -32,7 +32,7 @@ public class BFS extends Search {
             else {
                 insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
             }
-            System.out.println(frontier.toString());
+            System.out.println("Frontier: " + frontier.toString());
         }
 
         return null; // If frontier is empty, return null.

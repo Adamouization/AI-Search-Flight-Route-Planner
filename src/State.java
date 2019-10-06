@@ -35,7 +35,7 @@ public class State {
      */
     @Override
     public String toString() {
-        return "(" + this.d + ", " + this.angle + ")=" + this.status;
+        return "(" + this.d + ", " + this.angle + ")";
     }
 
     /**

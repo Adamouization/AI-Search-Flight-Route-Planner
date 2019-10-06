@@ -86,7 +86,7 @@ abstract class Search {
     }
 
     public boolean goalTest(Node curPoint, State endPoint) {
-        return curPoint.getState().equals(endPoint);
+        return curPoint.getState().getD() == endPoint.getD() && curPoint.getState().getAngle() == endPoint.getAngle();
     }
 
     public int pathCost(/* State state1, State state2 */) {
