@@ -131,4 +131,7 @@ abstract class Search {
 
     abstract public Node removeFrontierNode(LinkedList<Node> frontier);
 
+    abstract public boolean isNodeInFrontier(LinkedList<Node> frontier, State state);
+
+    abstract public boolean isNodeInExploredSet(ArrayList<Node> exploredSet, State state);
 }

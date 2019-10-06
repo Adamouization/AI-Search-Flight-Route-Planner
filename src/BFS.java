@@ -18,9 +18,10 @@ public class BFS extends Search {
         ArrayList<Node> exploredSet = new ArrayList<>();
         Node curNode;
 
-        // Create root node and add it to the frontier.
-        Node rootNode = makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle());
-        frontier.add(rootNode);
+        // Create and add the root node to the frontier.
+        frontier.add(
+                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle())
+        );
 
         while (!frontier.isEmpty()) {
             curNode = removeFrontierNode(frontier);
@@ -47,8 +48,8 @@ public class BFS extends Search {
         ArrayList<State> nextStates = successor(node.getState(), problem);
 
         for (State state: nextStates) {
-            if (!(frontier.contains(state)) && !(exploredSet.contains(state))) {
-                newNode = makeNode(node, node.getState().getD(), node.getState().getAngle());
+            if (!(isNodeInFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {
+                newNode = makeNode(node, state.getD(), state.getAngle());
                 successorsSet.add(newNode);
             }
         }
@@ -64,6 +65,26 @@ public class BFS extends Search {
     @Override
     public Node removeFrontierNode(LinkedList<Node> frontier) {
         return frontier.removeFirst(); // Remove the first node from the queue (FIFO).
+    }
+
+    @Override
+    public boolean isNodeInFrontier(LinkedList<Node> frontier, State state) {
+        for (Node n: frontier) {
+            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isNodeInExploredSet(ArrayList<Node> exploredSet, State state) {
+        for (Node n: exploredSet) {
+            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
