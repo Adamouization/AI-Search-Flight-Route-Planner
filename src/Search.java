@@ -123,6 +123,17 @@ abstract class Search {
         return node;
     }
 
+    public ArrayList<String> findSolutionPath(Node goalNode) {
+        ArrayList<String> solutionPath = new ArrayList<>();
+        Node n = goalNode;
+        solutionPath.add(n.getState().toString());
+        while (n.getParentNode() != null) {
+            solutionPath.add(0, n.getParentNode().toString());
+            n = n.getParentNode();
+        }
+        return solutionPath;
+    }
+
     abstract public Node treeSearch(Problem problem, LinkedList<Node> frontier);
 
     abstract public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier, ArrayList<Node> exploredSet);

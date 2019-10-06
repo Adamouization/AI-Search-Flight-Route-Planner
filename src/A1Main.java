@@ -97,8 +97,6 @@ public class A1Main {
             world.add(parallel);
         }
 
-        // todo - step 4: initialise search algorithm with start/goal and algorithm
-
         // Add Start and Goal points on the world.
         world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setStatus('S');
         world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setStatus('G');
@@ -106,10 +104,15 @@ public class A1Main {
         // Print the entire world.
         //Helper.printWorld(world);
 
-        // todo - step 5: start the search
+        // Start the search.
         BFS bfs = new BFS();
-        Node solution = bfs.treeSearch(problem, frontier);
-        System.out.println("Current node: " + solution);
+        Node currentNode = bfs.treeSearch(problem, frontier);
+
+        // Print out the solution.
+        System.out.println("Flight instructions: todo");
+        System.out.println("\nCurrent node: " + currentNode);
+        System.out.println("Path followed: " + bfs.findSolutionPath(currentNode).toString());
+        System.out.println("States expanded: todo");
     }
 
     public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {

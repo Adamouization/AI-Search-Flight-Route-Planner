@@ -12,27 +12,31 @@ public class BFS extends Search {
 
     @Override
     public Node treeSearch(Problem problem, LinkedList<Node> frontier) {
-        System.out.println("Starting BFS search");
+        System.out.println("Starting Breadth-First Search...");
 
         // Local variables used throughout the search.
         ArrayList<Node> exploredSet = new ArrayList<>();
         Node curNode;
 
         // Create and add the root node to the frontier.
+        Helper.printFrontier(frontier);
         frontier.add(
                 makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle())
         );
+        Helper.printFrontier(frontier);
 
         while (!frontier.isEmpty()) {
             curNode = removeFrontierNode(frontier);
             exploredSet.add(curNode);
             if (goalTest(curNode, problem.getEndPoint())) {
+                Helper.printFrontier(frontier);
+                System.out.println("\nPath found!");
                 return curNode;
             }
             else {
                 insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
             }
-            System.out.println("Frontier: " + frontier.toString());
+            Helper.printFrontier(frontier);
         }
 
         return null; // If frontier is empty, return null.

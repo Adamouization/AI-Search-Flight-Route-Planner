@@ -59,6 +59,10 @@ public class Helper {
         System.out.println("]");
     }
 
+    public static void printFrontier(LinkedList<Node> frontier) {
+        System.out.println("Frontier: " + frontier.toString());
+    }
+
     /**
      * Prints an error message to the command line and terminates the program with an error code.
      */
