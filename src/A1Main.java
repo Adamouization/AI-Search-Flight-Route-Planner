@@ -62,6 +62,12 @@ public class A1Main {
                     )
             );
 
+            // If the goal point is located at the pole, then terminate program.
+            if (problem.getStartPoint().getD() == 0 || problem.getEndPoint().getD() == 0) {
+                System.err.println("invalid goal located at pole (0,0)");
+                Helper.errorMessage();
+            }
+
             // Debugging: print command line arguments.
             System.out.println("Search type: " + searchType);
             problem.printArguments();
