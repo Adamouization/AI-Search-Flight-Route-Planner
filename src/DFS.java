@@ -101,18 +101,4 @@ public class DFS extends Search {
         return frontier.removeFirst(); // Remove the first node from the queue (FIFO).
     }
 
-    /**
-     * Prints the solution to the command line, including the complete flight instructions, the current Node, the path
-     * followed to get from the start State to the goal State, and the States explored during the search.
-     *
-     * @param currentNode: the current Node, which matches the goal Node.
-     */
-    public void printSolution(Node currentNode) {
-        System.out.println("\nPath found using DFS!");
-        System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
-        System.out.println("\nCurrent node: " + currentNode);
-        System.out.println("Path followed: " + findSolutionPath(currentNode).toString());
-        System.out.println(getExploredSet().size() + " states expanded: " + getExploredSet().toString());
-    }
-
 }

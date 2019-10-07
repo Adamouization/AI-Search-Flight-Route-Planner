@@ -223,6 +223,20 @@ abstract class Search {
         return flightInstruction;
     }
 
+    /**
+     * Prints the solution to the command line, including the complete flight instructions, the current Node, the path
+     * followed to get from the start State to the goal State, and the States explored during the search.
+     *
+     * @param currentNode: the current Node, which matches the goal Node.
+     */
+    public void printSolution(Node currentNode, Problem problem, String searchType) {
+        System.out.println("\nPath found using " + searchType + "!");
+        System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
+        System.out.println("\nCurrent node: " + currentNode);
+        System.out.println("Path followed: " + findSolutionPath(currentNode).toString());
+        System.out.println(getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
+    }
+
     /* Getters & Setters ******************************************************************************************** */
 
     /**

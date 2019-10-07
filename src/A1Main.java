@@ -110,12 +110,12 @@ public class A1Main {
             case "BFS":
                 BFS bfs = new BFS();
                 currentNode = bfs.treeSearch(problem, frontier);
-                bfs.printSolution(currentNode);
+                bfs.printSolution(currentNode, problem, searchType);
                 break;
             case "DFS":
                 DFS dfs = new DFS();
                 currentNode = dfs.treeSearch(problem, frontier);
-                dfs.printSolution(currentNode);
+                dfs.printSolution(currentNode, problem, searchType);
         }
 
     }
