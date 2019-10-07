@@ -37,8 +37,7 @@ public class BFS extends Search {
             exploredSet.add(curNode);
             if (goalTest(curNode, problem.getEndPoint())) {
                 setExploredSet(exploredSet);
-                Helper.printFrontier(frontier);
-                System.out.println("\nPath found using BFS!");
+                Helper.printFrontier(frontier); // Print the frontier at each step.
                 return curNode;
             }
             else {
@@ -133,6 +132,20 @@ public class BFS extends Search {
             }
         }
         return false;
+    }
+
+    /**
+     * Prints the solution to the command line, including the complete flight instructions, the current Node, the path
+     * followed to get from the start State to the goal State, and the States explored during the search.
+     *
+     * @param currentNode: the current Node, which matches the goal Node.
+     */
+    public void printSolution(Node currentNode) {
+        System.out.println("\nPath found using BFS!");
+        System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
+        System.out.println("\nCurrent node: " + currentNode);
+        System.out.println("Path followed: " + findSolutionPath(currentNode).toString());
+        System.out.println(getExploredSet().size() + " states expanded: " + getExploredSet().toString());
     }
 
 }

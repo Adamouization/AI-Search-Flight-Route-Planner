@@ -105,14 +105,19 @@ public class A1Main {
         //Helper.printWorld(world);
 
         // Start the search.
-        BFS bfs = new BFS();
-        Node currentNode = bfs.treeSearch(problem, frontier);
+        Node currentNode;
+        switch (searchType) {
+            case "BFS":
+                BFS bfs = new BFS();
+                currentNode = bfs.treeSearch(problem, frontier);
+                bfs.printSolution(currentNode);
+                break;
+            case "DFS":
+                DFS dfs = new DFS();
+                currentNode = dfs.treeSearch(problem, frontier);
+                dfs.printSolution(currentNode);
+        }
 
-        // Print out the solution.
-        System.out.println("Flight instructions: " + bfs.findFlightInstructions(currentNode).toString());
-        System.out.println("\nCurrent node: " + currentNode);
-        System.out.println("Path followed: " + bfs.findSolutionPath(currentNode).toString());
-        System.out.println(bfs.getExploredSet().size() + " states expanded: " + bfs.getExploredSet().toString());
     }
 
     public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {
