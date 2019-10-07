@@ -23,6 +23,8 @@ public class Problem {
         System.out.println();
     }
 
+    /* Getters ****************************************************************************************************** */
+
     /**
      * @return The size of the world (number of parallels on the planet).
      */
@@ -44,6 +46,8 @@ public class Problem {
         return endPoint;
     }
 
+    /* Setters ****************************************************************************************************** */
+
     /**
      * @param N The size of the world (number of parallels on the planet).
      */
@@ -64,4 +68,5 @@ public class Problem {
     public void setEndPoint(State endPoint) {
         this.endPoint = endPoint;
     }
+
 }

@@ -39,6 +39,8 @@ public class State {
         return "(" + this.d + ", " + this.angle + ")";
     }
 
+    /* Getters ****************************************************************************************************** */
+
     /**
      * @return The parallel, which can be used as index for the outer LinkedList.
      */
@@ -67,6 +69,8 @@ public class State {
         return status;
     }
 
+    /* Setters ****************************************************************************************************** */
+
     /**
      * @param d The parallel, which can be used as index for the outer LinkedList.
      */
@@ -94,4 +98,5 @@ public class State {
     public void setStatus(char status) {
         this.status = status;
     }
+
 }
