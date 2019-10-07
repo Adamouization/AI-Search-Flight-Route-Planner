@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * @author adam jaamour (agj6)
  *
  */
-public class DFS extends Search {
+public class DFS extends UninformedSearch {
 
     /**
      * The main search method for the BFS algorithm.
