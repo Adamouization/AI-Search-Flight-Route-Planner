@@ -155,6 +155,38 @@ abstract class Search {
     }
 
     /**
+     * Checks that a node is in the Frontier.
+     *
+     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
+     * @param state The State to check that is in the Frontier.
+     * @return A Boolean indicating if the Node is already in the Frontier.
+     */
+    public boolean isNodeInFrontier(LinkedList<Node> frontier, State state) {
+        for (Node n: frontier) {
+            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks that a node is in the set of explored Nodes.
+     *
+     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
+     * @param state The State to check that is in the exploredSet.
+     * @return A Boolean indicating if the Node is already in the set of explored Nodes.
+     */
+    public boolean isNodeInExploredSet(ArrayList<Node> exploredSet, State state) {
+        for (Node n: exploredSet) {
+            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds the states followed to get from the start State to the goal State to an ordered ArrayList of Strings.
      *
      * @param goalNode: the goal Node.
@@ -217,7 +249,4 @@ abstract class Search {
 
     abstract public Node removeFrontierNode(LinkedList<Node> frontier);
 
-    abstract public boolean isNodeInFrontier(LinkedList<Node> frontier, State state);
-
-    abstract public boolean isNodeInExploredSet(ArrayList<Node> exploredSet, State state);
 }

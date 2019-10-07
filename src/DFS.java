@@ -102,40 +102,6 @@ public class DFS extends Search {
     }
 
     /**
-     * Checks that a node is in the Frontier.
-     *
-     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
-     * @param state The State to check that is in the Frontier.
-     * @return A Boolean indicating if the Node is already in the Frontier.
-     */
-    @Override
-    public boolean isNodeInFrontier(LinkedList<Node> frontier, State state) {
-        for (Node n: frontier) {
-            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks that a node is in the set of explored Nodes.
-     *
-     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
-     * @param state The State to check that is in the exploredSet.
-     * @return A Boolean indicating if the Node is already in the set of explored Nodes.
-     */
-    @Override
-    public boolean isNodeInExploredSet(ArrayList<Node> exploredSet, State state) {
-        for (Node n: exploredSet) {
-            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Prints the solution to the command line, including the complete flight instructions, the current Node, the path
      * followed to get from the start State to the goal State, and the States explored during the search.
      *
