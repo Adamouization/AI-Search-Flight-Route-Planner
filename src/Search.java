@@ -108,13 +108,23 @@ abstract class Search {
         return curPoint.getState().getD() == endPoint.getD() && curPoint.getState().getAngle() == endPoint.getAngle();
     }
 
-    /*
-    public int pathCost(State state1, State state2) {
-        int cost = 0;
-        System.out.println("pathCost");
-        return cost;
+    /**
+     * Calculates the path cost from one State to another.
+     *
+     * @param state1 State going to.
+     * @param state2 State coming from.
+     * @return The path cost in the form of a Double.
+     */
+    public double calculatePathCost(State state1, State state2) {
+        // Same parallel.
+        if (state1.getD() == state2.getD()) {
+            return (2 * Math.PI * state1.getD()) / 8;
+        }
+        // Different parallel.
+        else {
+            return 1.0;
+        }
     }
-    */
 
     /**
      * Creates a new Node, linking it to the parent node.
@@ -141,6 +151,13 @@ abstract class Search {
         // Determine and set node's action.
         if (node.getParentNode() != null) {
             node.setAction(Helper.getActionFromState(node));
+        }
+
+        try {
+            node.setPathCost(curNode.getPathCost() + calculatePathCost(curNode.getState(), curNode.getParentNode().getState()));
+        }
+        catch (NullPointerException e)  {
+            node.setPathCost(0.0);
         }
 
         // Set node depth.

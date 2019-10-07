@@ -10,6 +10,7 @@ public class Node {
     // Declare variables.
     private State state; // Includes the parallel and the meridian.
     private String action;
+    private double pathCost;
     private Node parentNode;
     private int depth;
 
@@ -40,6 +41,13 @@ public class Node {
     }
 
     /**
+     * @return
+     */
+    public double getPathCost() {
+        return pathCost;
+    }
+
+    /**
      * @return The parent Node of this Node.
      */
     public Node getParentNode() {
@@ -67,6 +75,13 @@ public class Node {
      */
     public void setAction(String action) {
         this.action = action;
+    }
+
+    /**
+     * @param pathCost
+     */
+    public void setPathCost(double pathCost) {
+        this.pathCost = pathCost;
     }
 
     /**
