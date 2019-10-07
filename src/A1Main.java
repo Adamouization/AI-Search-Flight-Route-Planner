@@ -120,22 +120,4 @@ public class A1Main {
 
     }
 
-    public LinkedList<LinkedList<State>> moveAircraft(LinkedList<LinkedList<State>> world, char direction) {
-        switch (direction) {
-            case 'N':
-                // Move towards centre (N -> N-1).
-                break;
-            case 'S':
-                // Move away from centre (N -> N+1).
-                break;
-            case 'E':
-                // Move clockwise (-45 degrees).
-                break;
-            case 'W':
-                // Move anti-clockwise (+45 degrees).
-                break;
-        }
-        return world;
-    }
-
 }
