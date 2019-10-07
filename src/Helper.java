@@ -9,12 +9,18 @@ import java.util.LinkedList;
  */
 public class Helper {
 
+    /**
+     * Determines the action based on the current Node's State and its parent Node's State.
+     *
+     * @param node The current Node.
+     * @return The action used to move from the parent Node's State to the current Node's State.
+     */
     public static String getActionFromState(Node node) {
         // Same parallel, so different meridian (either E or W).
         if (node.getState().getD() == node.getParentNode().getState().getD()) {
             // Current node angle is bigger than parent node angle, so moved E.
             if (node.getState().getAngle() - node.getParentNode().getState().getAngle() > 0) {
-                // Take care of special case looping from 0 to 315 degrees, which is going W.
+                // Take care of special case looping from 0 to 315 degrees, which is going Wget.
                 if (node.getState().getAngle() == 315 && node.getParentNode().getState().getAngle() == 0) {
                     return "H270";
                 }
@@ -92,6 +98,11 @@ public class Helper {
         System.out.println("]\n");
     }
 
+    /**
+     * Prints the current Frontier to the command line.
+     *
+     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
+     */
     public static void printFrontier(LinkedList<Node> frontier) {
         System.out.println("Frontier: " + frontier.toString());
     }

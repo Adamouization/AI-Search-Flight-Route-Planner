@@ -1,6 +1,7 @@
 /**
  *
- * Problem data structure.
+ * Problem data structure, which contains initialisation parameters such as the size of the world, the start State and
+ * the end State.
  *
  * @author adam jaamour (agj6)
  *

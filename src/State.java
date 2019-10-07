@@ -1,6 +1,7 @@
 /**
  *
- * Data structure representing a state in the world.
+ * Data structure representing a state in the world, including its location (parallel and meridian), it's index in the
+ * world data structure, and it's status (S for start, G for goal, P for pole).
  *
  * @author adam jaamour (agj6)
  *

@@ -3,15 +3,25 @@ import java.util.LinkedList;
 
 /**
  *
- * Search methods.
+ * Abstract method working as a template for specific search algorithms. Contains methods common to all search
+ * algorithms, and methods specific to each search algorithm which are developed in their respective classes.
  *
  * @author adam jaamour (agj6)
  *
  */
 abstract class Search {
 
-    private ArrayList<Node> exploredSet = new ArrayList<>();
+    // Declare and initialise variables.
+    private ArrayList<Node> exploredSet = new ArrayList<>(); // List of explored nodes.
 
+    /**
+     * Determines the next valid move that can be made from the current Node's state. Checks that the agent can move
+     * North, South, East and West from the current node's state.
+     *
+     * @param state The state of the current node.
+     * @param problem The problem structure.
+     * @return A set of valid states that can be expanded next.
+     */
     public ArrayList<State> successor(State state, Problem problem) {
         ArrayList<State> childrenNodes = new ArrayList<>();
 
@@ -87,16 +97,33 @@ abstract class Search {
         return childrenNodes;
     }
 
+    /**
+     * Test to check that the current node's state is the goal state.
+     *
+     * @param curPoint The current node.
+     * @param endPoint The goal state.
+     * @return A boolean indicating whether the goal state has been reached.
+     */
     public boolean goalTest(Node curPoint, State endPoint) {
         return curPoint.getState().getD() == endPoint.getD() && curPoint.getState().getAngle() == endPoint.getAngle();
     }
 
-    public int pathCost(/* State state1, State state2 */) {
+    /*
+    public int pathCost(State state1, State state2) {
         int cost = 0;
         System.out.println("pathCost");
         return cost;
     }
+    */
 
+    /**
+     * Creates a new Node, linking it to the parent node.
+     *
+     * @param curNode The current Node.
+     * @param d The current node's parallel.
+     * @param angle The current node's meridian.
+     * @return The new created Node.
+     */
     public Node makeNode(Node curNode, int d, int angle) {
         Node node = new Node();
 
@@ -127,6 +154,12 @@ abstract class Search {
         return node;
     }
 
+    /**
+     * Adds the states followed to get from the start State to the goal State to an ordered ArrayList of Strings.
+     *
+     * @param goalNode: the goal Node.
+     * @return The ArrayList of Strings representing the states followed from start to goal State.
+     */
     public ArrayList<String> findSolutionPath(Node goalNode) {
         ArrayList<String> solutionPath = new ArrayList<>();
         Node n = goalNode;
@@ -138,6 +171,14 @@ abstract class Search {
         return solutionPath;
     }
 
+    /**
+     * Adds the flight instructions followed to get from the start State to the goal State to an ordered ArrayList of
+     * Strings.
+     *
+     * @param goalNode: the goal Node.
+     * @return The ArrayList of Strings representing the states followed from start to goal State.
+     * @see Helper#getActionFromState(Node)
+     */
     public ArrayList<String> findFlightInstructions(Node goalNode) {
         ArrayList<String> flightInstruction = new ArrayList<>();
         Node n = goalNode;
@@ -150,13 +191,23 @@ abstract class Search {
         return flightInstruction;
     }
 
+    /* Getters & Setters ******************************************************************************************** */
+
+    /**
+     * @return An ArrayList of Nodes containing all the explored Nodes.
+     */
     public ArrayList<Node> getExploredSet() {
         return exploredSet;
     }
 
+    /**
+     * @param exploredSet An ArrayList of Nodes containing all the explored Nodes.
+     */
     public void setExploredSet(ArrayList<Node> exploredSet) {
         this.exploredSet = exploredSet;
     }
+
+    /* Abstract Method Declarations ********************************************************************************* */
 
     abstract public Node treeSearch(Problem problem, LinkedList<Node> frontier);
 
