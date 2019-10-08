@@ -1,0 +1,109 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{amsmath}  % improve math presentation
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage[margin=0.95in,letterpaper]{geometry} % decreases margins
+\usepackage{cite} % takes care of citations
+\usepackage[titletoc,title]{appendix} % takes care of appendices
+\usepackage{listings} % code representation
+\usepackage{pdflscape}
+\usepackage{csquotes} % for quoting existing work
+\usepackage{color} % defines colors for code listings
+\usepackage{comment} % allows for block of comments
+\usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
+
+% style code listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+\title{CS5011 Artificial Intelligence Practice\\Practical 1 Report}
+\author{Student ID: 150014151}
+\date{11 October, 2019}
+\maketitle
+
+
+% --------------------------------------- 1 - INTRODUCTION ------------------------------------------ 
+
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Overview}
+
+A checklist of the parts implemented and any extension attempted. If any of the functionalities is only partially working, ensure that this is discussed in your report.
+
+\subsection{Usage}
+
+Compiling and running instructions with examples
+
+% -------------------------- 2 - DESIGN - IMPLEMENTATION - EVALUATION -------------------------------
+
+\section{Design, Implementation \& Evaluation}
+\label{sec:design-implementation-evaluation}
+
+max: 1500 words
+
+\subsection{Design \& Implementation}
+
+A general overview of the design of your system, including the PEAS model, a problem definition (if applicable) and the system architecture. Key elements of implementation including any data structure or algorithm used if applicable. Remember to justify the mechanisms you have implemented as part of your solution.\\
+
+Please do not include screenshots of your code, pseudo code can be used instead with relevant references to where this can be found in your code.\\
+
+Motivate your choices: this can be done by considering why as well as how you have implemented the system in the way you did.
+
+\subsection{Evaluation}
+
+This section is about performance of the system. A critical analysis of the functionalities of your system and what can be improved. The role of this section is to show and demonstrate the qualities and limitations of your system such as how effectively or efficiently the system works under certain conditions.\\
+
+Depending on the type of assignment, this section should include results of any evaluation performed at a large scale, for example a table/graph showing performance results.\\
+
+Pros and Cons of your approach should also be discussed, and any component that could be improved.\\
+
+% -------------------------------------- 3 - TEST SUMMARY ------------------------------------------ 
+\section{Test Summary}
+\label{sec:test-summary}
+
+This section is about correctness of the system. Include a table or a list of tests performed, with input and output where appropriate. The role of this part is to show that your system is working correctly. You could also include:
+
+\begin{itemize}
+    \item Screenshots of the outputs
+    \item Small working examples
+    \item Graphical representation of these working examples (etc)
+\end{itemize}
+
+% ---------------------------------------- 4 - CONCLUSION ------------------------------------------ 
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+List all the references you cite in your report and code.
+
+% -------------------------------------------- APPENDIX -------------------------------------------- 
+
+\newpage
+\begin{appendices}
+
+todo
+
+\end{appendices}
+\end{document}
