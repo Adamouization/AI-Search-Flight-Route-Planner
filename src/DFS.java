@@ -28,7 +28,7 @@ public class DFS extends UninformedSearch {
         // Create and add the root node to the frontier.
         Helper.printFrontierList(frontier);
         frontier.add(
-                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle())
+                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle(), problem)
         );
         Helper.printFrontierList(frontier);
 
@@ -70,7 +70,7 @@ public class DFS extends UninformedSearch {
 
         for (State state: nextStates) {
             if (!(isNodeInListFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {
-                newNode = makeNode(node, state.getD(), state.getAngle());
+                newNode = makeNode(node, state.getD(), state.getAngle(), problem);
                 successorsSet.add(newNode);
             }
         }

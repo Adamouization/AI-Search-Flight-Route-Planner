@@ -193,6 +193,6 @@ abstract class GeneralSearch {
 
     /* Abstract Method Declarations ********************************************************************************* */
 
-    abstract public Node makeNode(Node curNode, int d, int angle);
+    abstract public Node makeNode(Node curNode, int d, int angle, Problem problem);
 
 }

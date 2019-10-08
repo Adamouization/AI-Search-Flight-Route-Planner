@@ -11,8 +11,9 @@ abstract class InformedSearch extends GeneralSearch {
      * @param d The current node's parallel.
      * @param angle The current node's meridian.
      * @return The new created Node.
+     * @throws NullPointerException When dealing with the root node, which has no parent node.
      */
-    public Node makeNode(Node curNode, int d, int angle) {
+    public Node makeNode(Node curNode, int d, int angle, Problem problem) {
         Node node = new Node();
 
         // Set node state.
@@ -33,7 +34,7 @@ abstract class InformedSearch extends GeneralSearch {
 
         // Calculate and set path cost.
         try {
-            node.setPathCost(curNode.getPathCost() + calculatePathCost(curNode.getState(), curNode.getParentNode().getState()));
+            node.setPathCost(estimateCostFromNodeToGoal(curNode.getState(), problem.getEndPoint()));
         }
         catch (NullPointerException e)  {
             node.setPathCost(0.0);
@@ -67,21 +68,16 @@ abstract class InformedSearch extends GeneralSearch {
     }
 
     /**
-     * Calculates the path cost from one State to another.
+     * Estimates the Euclidian distance from the current State to the goal State.
      *
-     * @param state1 State going to.
-     * @param state2 State coming from.
-     * @return The path cost in the form of a Double.
+     * @param curState State going to.
+     * @param goalState State coming from.
+     * @return The Euclidian distance between the current State and the goal State.
      */
-    private double calculatePathCost(State state1, State state2) {
-        // Same parallel.
-        if (state1.getD() == state2.getD()) {
-            return (2 * Math.PI * state1.getD()) / 8;
-        }
-        // Different parallel.
-        else {
-            return 1.0;
-        }
+    private double estimateCostFromNodeToGoal(State curState, State goalState) {
+        double pow = Math.pow(curState.getD(), 2) + Math.pow(goalState.getD(), 2);
+        double cos = 2 * curState.getD() * goalState.getD() * Math.cos(goalState.getAngle() - curState.getAngle());
+        return Math.sqrt(pow - cos);
     }
 
     /* Abstract Method Declarations ********************************************************************************* */

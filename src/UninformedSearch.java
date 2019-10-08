@@ -11,8 +11,9 @@ abstract class UninformedSearch extends GeneralSearch {
      * @param d The current node's parallel.
      * @param angle The current node's meridian.
      * @return The new created Node.
+     * @throws NullPointerException When dealing with the root node, which has no parent node.
      */
-    public Node makeNode(Node curNode, int d, int angle) {
+    public Node makeNode(Node curNode, int d, int angle, Problem problem) {
         Node node = new Node();
 
         // Set node state.

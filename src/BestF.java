@@ -29,7 +29,7 @@ public class BestF extends InformedSearch {
         // Create and add the root node to the frontier.
         Helper.printFrontierQueue(frontier);
         frontier.add(
-                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle())
+                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle(), problem)
         );
         Helper.printFrontierQueue(frontier);
 
@@ -71,7 +71,7 @@ public class BestF extends InformedSearch {
 
         for (State state: nextStates) {
             if (!(isNodeInQueueFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {
-                newNode = makeNode(node, state.getD(), state.getAngle());
+                newNode = makeNode(node, state.getD(), state.getAngle(), problem);
                 successorsSet.add(newNode);
             }
         }
