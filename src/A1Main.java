@@ -1,3 +1,4 @@
+import java.util.concurrent.TimeUnit;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -17,6 +18,7 @@ public class A1Main {
     public static void main(String[] args) {
 
         // Declare and initialise variables.
+        long startTime, endTime, runTime;
         String searchType = "";
         Problem problem = new Problem();
         LinkedList<LinkedList<State>> world;
@@ -106,6 +108,9 @@ public class A1Main {
         // Print the entire world.
         //Helper.printWorld(world);
 
+        // Start measuring time.
+        startTime = System.nanoTime();
+
         // Start the search.
         Node currentNode;
         switch (searchType) {
@@ -113,19 +118,25 @@ public class A1Main {
                 uninformedSearchFrontier = new LinkedList<>();
                 BFS bfs = new BFS();
                 currentNode = bfs.treeSearch(problem, uninformedSearchFrontier);
-                bfs.printSolution(currentNode, problem, searchType);
+                endTime = System.nanoTime();
+                runTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
+                bfs.printSolution(currentNode, problem, searchType, runTime);
                 break;
             case "DFS":
                 uninformedSearchFrontier = new LinkedList<>();
                 DFS dfs = new DFS();
                 currentNode = dfs.treeSearch(problem, uninformedSearchFrontier);
-                dfs.printSolution(currentNode, problem, searchType);
+                endTime = System.nanoTime();
+                runTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
+                dfs.printSolution(currentNode, problem, searchType, runTime);
                 break;
             case "BestF":
                 informedSearchFrontier = new PriorityQueue<>();
                 BestF bestF = new BestF();
                 currentNode = bestF.treeSearch(problem, informedSearchFrontier);
-                bestF.printSolution(currentNode, problem, searchType);
+                endTime = System.nanoTime();
+                runTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
+                bestF.printSolution(currentNode, problem, searchType, runTime);
                 break;
             case "AStar":
                 // todo
