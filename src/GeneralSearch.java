@@ -170,7 +170,8 @@ abstract class GeneralSearch {
         System.out.println("\nPath found using " + searchType + " in " + runTime + " ms!");
         System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
         System.out.println("\nCurrent node: " + currentNode);
-        System.out.println("Path followed: " + findSolutionPath(currentNode).toString());
+        ArrayList<String> solutionPath = findSolutionPath(currentNode);
+        System.out.println("Path followed (" + solutionPath.size() + "): " + solutionPath.toString());
         System.out.println(getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
     }
 
