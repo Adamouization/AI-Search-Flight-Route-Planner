@@ -109,22 +109,6 @@ abstract class GeneralSearch {
     }
 
     /**
-     * Checks that a node is in the Frontier.
-     *
-     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
-     * @param state The State to check that is in the Frontier.
-     * @return A Boolean indicating if the Node is already in the Frontier.
-     */
-    public boolean isNodeInFrontier(LinkedList<Node> frontier, State state) {
-        for (Node n: frontier) {
-            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Checks that a node is in the set of explored Nodes.
      *
      * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.

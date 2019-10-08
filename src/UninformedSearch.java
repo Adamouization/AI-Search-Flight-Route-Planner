@@ -4,7 +4,8 @@ import java.util.LinkedList;
 abstract class UninformedSearch extends GeneralSearch {
 
     /**
-     * Creates a new Node, linking it to the parent node. Ignores path cost (redundant in uninformed search).
+     * Creates a new Node, linking it to the parent node. Ignores path cost (redundant in uninformed search). Uses
+     * LinkedLists to represent the Frontier.
      *
      * @param curNode The current Node.
      * @param d The current node's parallel.
@@ -42,6 +43,22 @@ abstract class UninformedSearch extends GeneralSearch {
         }
 
         return node;
+    }
+
+    /**
+     * Checks that a node is in the Frontier.
+     *
+     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
+     * @param state The State to check that is in the Frontier.
+     * @return A Boolean indicating if the Node is already in the Frontier.
+     */
+    public boolean isNodeInListFrontier(LinkedList<Node> frontier, State state) {
+        for (Node n: frontier) {
+            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /* Abstract Method Declarations ********************************************************************************* */

@@ -1,11 +1,12 @@
 /**
  *
- * Data structure representing a Node in the search tree.
+ * Data structure representing a Node in the search tree. Implements the Comparable interface to be used with
+ * PriorityQueues.
  *
  * @author adam jaamour (agj6)
  *
  */
-public class Node {
+public class Node implements Comparable<Node> {
 
     // Declare variables.
     private State state; // Includes the parallel and the meridian.
@@ -15,12 +16,34 @@ public class Node {
     private int depth;
 
     /**
+     * Compares this object with the specified object for order.  Returns a negative integer, zero, or a positive
+     * integer as this object is less than, equal to, or greater than the specified object.
+     *
+     * @param n the object to be compared.
+     * @return a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than
+     * the specified object.
+     * @throws NullPointerException if the specified object is null
+     * @throws ClassCastException   if the specified object's type prevents it from being compared to this object.
+     */
+    @Override
+    public int compareTo(Node n) {
+        if (this.pathCost > n.pathCost) {
+            return 1;
+        }
+        else if (this.pathCost < n.pathCost) {
+            return -1;
+        }
+        return 0;
+    }
+
+    /**
      * Generates a String representation of a Node object.
      *
      * @return The String representation of a Node object.
      */
     @Override
     public String toString() {
+        // return this.state.toString() + " - " + this.pathCost;
         return this.state.toString();
     }
 

@@ -1,10 +1,11 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 abstract class InformedSearch extends GeneralSearch {
 
     /**
-     * Creates a new Node, linking it to the parent node. Takes path cost into account to perform informed search.
+     * Creates a new Node, linking it to the parent node. Takes path cost into account to perform informed search. Uses
+     * PriorityQueue to represent the Frontier.
      *
      * @param curNode The current Node.
      * @param d The current node's parallel.
@@ -50,6 +51,22 @@ abstract class InformedSearch extends GeneralSearch {
     }
 
     /**
+     * Checks that a node is in the Frontier.
+     *
+     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
+     * @param state The State to check that is in the Frontier.
+     * @return A Boolean indicating if the Node is already in the Frontier.
+     */
+    public boolean isNodeInQueueFrontier(PriorityQueue<Node> frontier, State state) {
+        for (Node n: frontier) {
+            if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Calculates the path cost from one State to another.
      *
      * @param state1 State going to.
@@ -69,12 +86,12 @@ abstract class InformedSearch extends GeneralSearch {
 
     /* Abstract Method Declarations ********************************************************************************* */
 
-    abstract public Node treeSearch(Problem problem, LinkedList<Node> frontier);
+    abstract public Node treeSearch(Problem problem, PriorityQueue<Node> frontier);
 
-    abstract public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier, ArrayList<Node> exploredSet);
+    abstract public ArrayList<Node> expand(Node node, Problem problem, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet);
 
-    abstract public LinkedList<Node> insertFrontierNodes(LinkedList<Node> frontier, ArrayList<Node> nodes);
+    abstract public PriorityQueue<Node> insertFrontierNodes(PriorityQueue<Node> frontier, ArrayList<Node> nodes);
 
-    abstract public Node removeFrontierNode(LinkedList<Node> frontier);
+    abstract public Node removeFrontierNode(PriorityQueue<Node> frontier);
 
 }

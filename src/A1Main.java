@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 /**
  *
@@ -19,7 +20,8 @@ public class A1Main {
         String searchType = "";
         Problem problem = new Problem();
         LinkedList<LinkedList<State>> world;
-        LinkedList<Node> frontier = new LinkedList<>();
+        LinkedList<Node> uninformedSearchFrontier;
+        PriorityQueue<Node> informedSearchFrontier;
 
         // Parse command line arguments.
         if (args.length == 4) {
@@ -108,14 +110,26 @@ public class A1Main {
         Node currentNode;
         switch (searchType) {
             case "BFS":
+                uninformedSearchFrontier = new LinkedList<>();
                 BFS bfs = new BFS();
-                currentNode = bfs.treeSearch(problem, frontier);
+                currentNode = bfs.treeSearch(problem, uninformedSearchFrontier);
                 bfs.printSolution(currentNode, problem, searchType);
                 break;
             case "DFS":
+                uninformedSearchFrontier = new LinkedList<>();
                 DFS dfs = new DFS();
-                currentNode = dfs.treeSearch(problem, frontier);
+                currentNode = dfs.treeSearch(problem, uninformedSearchFrontier);
                 dfs.printSolution(currentNode, problem, searchType);
+                break;
+            case "BestF":
+                informedSearchFrontier = new PriorityQueue<>();
+                BestF bestF = new BestF();
+                currentNode = bestF.treeSearch(problem, informedSearchFrontier);
+                bestF.printSolution(currentNode, problem, searchType);
+                break;
+            case "AStar":
+                // todo
+                break;
         }
 
     }

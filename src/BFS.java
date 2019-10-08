@@ -3,7 +3,7 @@ import java.util.LinkedList;
 
 /**
  *
- * Breadth-First Search implementation. Extends the Search abstract class.
+ * Breadth-First Search implementation. Extends the Search abstract class. Uses LinkedLists to represent the Frontier.
  *
  * @author adam jaamour (agj6)
  *
@@ -26,24 +26,24 @@ public class BFS extends UninformedSearch {
         ArrayList<Node> exploredSet = getExploredSet();
 
         // Create and add the root node to the frontier.
-        Helper.printFrontier(frontier);
+        Helper.printFrontierList(frontier);
         frontier.add(
                 makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle())
         );
-        Helper.printFrontier(frontier);
+        Helper.printFrontierList(frontier);
 
         while (!frontier.isEmpty()) {
             curNode = removeFrontierNode(frontier);
             exploredSet.add(curNode);
             if (goalTest(curNode, problem.getEndPoint())) {
                 setExploredSet(exploredSet);
-                Helper.printFrontier(frontier); // Print the frontier at each step.
+                Helper.printFrontierList(frontier); // Print the frontier at each step.
                 return curNode;
             }
             else {
                 insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
             }
-            Helper.printFrontier(frontier);
+            Helper.printFrontierList(frontier);
         }
 
         return null; // If frontier is empty, return null (no solution found).
@@ -69,7 +69,7 @@ public class BFS extends UninformedSearch {
         ArrayList<State> nextStates = successor(node.getState(), problem);
 
         for (State state: nextStates) {
-            if (!(isNodeInFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {
+            if (!(isNodeInListFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {
                 newNode = makeNode(node, state.getD(), state.getAngle());
                 successorsSet.add(newNode);
             }
