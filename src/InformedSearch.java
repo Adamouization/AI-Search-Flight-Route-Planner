@@ -57,6 +57,7 @@ abstract class InformedSearch extends GeneralSearch {
             node.setDepth(0);
         }
 
+        this.nodesCreated++;
         return node;
     }
 

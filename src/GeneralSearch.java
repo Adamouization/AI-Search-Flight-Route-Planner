@@ -12,6 +12,7 @@ import java.util.ArrayList;
 abstract class GeneralSearch {
 
     // Declare and initialise variables.
+    int nodesCreated = 0;
     private ArrayList<Node> exploredSet = new ArrayList<>(); // List of explored nodes.
 
     /**
@@ -198,7 +199,8 @@ abstract class GeneralSearch {
         ArrayList<String> solutionPath = findSolutionPath(currentNode);
         System.out.println("Path followed (" + solutionPath.size() + "): " + solutionPath.toString());
         System.out.println("Solution path cost: " + findSolutionPathCost(currentNode, problem.getStartPoint()));
-        System.out.println("\n" + getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
+        System.out.println("\nNodes created: " + nodesCreated);
+        System.out.println(getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
     }
 
     /* Getters & Setters ******************************************************************************************** */
