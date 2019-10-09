@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="A*" type="CompoundRunConfigurationType">
+    <toRun name="x AStar" type="Application" />
+    <toRun name="ix AStar" type="Application" />
+    <toRun name="ii AStar" type="Application" />
+    <toRun name="viii AStar" type="Application" />
+    <toRun name="iv AStar" type="Application" />
+    <toRun name="vi AStar" type="Application" />
+    <toRun name="iii AStar" type="Application" />
+    <toRun name="vii AStar" type="Application" />
+    <toRun name="v AStar" type="Application" />
+    <toRun name="i AStar" type="Application" />
+    <method v="2" />
+  </configuration>
+</component>

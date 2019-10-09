@@ -1,15 +1,15 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="BFS" type="CompoundRunConfigurationType">
-    <toRun name="ii BestF" type="Application" />
-    <toRun name="i BestF" type="Application" />
-    <toRun name="x BestF" type="Application" />
-    <toRun name="v BestF" type="Application" />
-    <toRun name="ix BestF" type="Application" />
-    <toRun name="vii BestF" type="Application" />
-    <toRun name="iii BestF" type="Application" />
-    <toRun name="iv BestF" type="Application" />
-    <toRun name="viii BestF" type="Application" />
-    <toRun name="vi BestF" type="Application" />
+    <toRun name="x BFS" type="Application" />
+    <toRun name="ix BFS" type="Application" />
+    <toRun name="i BFS" type="Application" />
+    <toRun name="ii BFS" type="Application" />
+    <toRun name="vii BFS" type="Application" />
+    <toRun name="viii BFS" type="Application" />
+    <toRun name="iv BFS" type="Application" />
+    <toRun name="iii BFS" type="Application" />
+    <toRun name="v BFS" type="Application" />
+    <toRun name="vi BFS" type="Application" />
     <method v="2" />
   </configuration>
 </component>
