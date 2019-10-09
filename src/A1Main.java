@@ -22,7 +22,6 @@ public class A1Main {
         // Declare and initialise variables.
         long startTime, endTime;
         double runTime;
-        String searchType = "";
         Problem problem = new Problem();
         LinkedList<LinkedList<State>> world;
         LinkedList<Node> uninformedSearchFrontier;
@@ -32,7 +31,7 @@ public class A1Main {
         if (args.length == 4) {
 
             // Type of search algorithm to use.
-            searchType = args[0];
+            problem.setSearchType(args[0]);
 
             // World size - check that it is a valid Integer.
             try {
@@ -76,7 +75,7 @@ public class A1Main {
             }
 
             // Debugging: print command line arguments.
-            System.out.println("Search type: " + searchType);
+            System.out.println("Search type: " + problem.getSearchType());
             problem.printArguments();
 
         }
@@ -116,14 +115,14 @@ public class A1Main {
 
         // Start the search.
         Node currentNode;
-        switch (searchType) {
+        switch (problem.getSearchType()) {
             case "BFS":
                 uninformedSearchFrontier = new LinkedList<>();
                 BFS bfs = new BFS();
                 currentNode = bfs.treeSearch(problem, uninformedSearchFrontier);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
-                bfs.printSolution(currentNode, problem, searchType, runTime);
+                bfs.printSolution(currentNode, problem, runTime);
                 break;
             case "DFS":
                 uninformedSearchFrontier = new LinkedList<>();
@@ -131,7 +130,7 @@ public class A1Main {
                 currentNode = dfs.treeSearch(problem, uninformedSearchFrontier);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
-                dfs.printSolution(currentNode, problem, searchType, runTime);
+                dfs.printSolution(currentNode, problem, runTime);
                 break;
             case "BestF":
                 informedSearchFrontier = new PriorityQueue<>();
@@ -139,7 +138,7 @@ public class A1Main {
                 currentNode = bestF.treeSearch(problem, informedSearchFrontier);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
-                bestF.printSolution(currentNode, problem, searchType, runTime);
+                bestF.printSolution(currentNode, problem, runTime);
                 break;
             case "AStar":
                 informedSearchFrontier = new PriorityQueue<>();
@@ -147,7 +146,7 @@ public class A1Main {
                 currentNode = aStar.treeSearch(problem, informedSearchFrontier);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
-                aStar.printSolution(currentNode, problem, searchType, runTime);
+                aStar.printSolution(currentNode, problem, runTime);
                 break;
         }
 

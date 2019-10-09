@@ -12,6 +12,7 @@ public class Problem {
     private int N;
     private State startPoint;
     private State endPoint;
+    private String searchType;
 
     /**
      * Prints the command line arguments passed to the program. Used for debugging purposes.
@@ -46,6 +47,13 @@ public class Problem {
         return endPoint;
     }
 
+    /**
+     * @return The type of search algorithm selected.
+     */
+    public String getSearchType() {
+        return searchType;
+    }
+
     /* Setters ****************************************************************************************************** */
 
     /**
@@ -69,4 +77,10 @@ public class Problem {
         this.endPoint = endPoint;
     }
 
+    /**
+     * @param searchType The type of search algorithm selected.
+     */
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
 }
