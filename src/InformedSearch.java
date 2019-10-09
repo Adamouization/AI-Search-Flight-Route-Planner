@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
+/**
+ *
+ * Abstract method working as a template for informed search algorithm implementations. Contains methods common to all
+ * informed search algorithms, and methods specific to each algorithm implementation which are developed in their
+ * respective concrete classes.
+ *
+ * @author adam jaamour (agj6)
+ *
+ */
 abstract class InformedSearch extends GeneralSearch {
 
     /**

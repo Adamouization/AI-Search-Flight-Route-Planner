@@ -2,8 +2,9 @@ import java.util.ArrayList;
 
 /**
  *
- * Abstract method working as a template for specific search algorithms. Contains methods common to all search
- * algorithms, and methods specific to each search algorithm which are developed in their respective classes.
+ * Abstract method working as a template for different types of search algorithms (uninformed and informed). Contains
+ * general methods common to all search algorithms, and methods specific to both types of search algorithm which are
+ * developed in their respective classes.
  *
  * @author adam jaamour (agj6)
  *
@@ -161,6 +162,31 @@ abstract class GeneralSearch {
     }
 
     /**
+     * Calculates the cost of the path found from start to goal States.
+     *
+     * @param curNode: the current Node with Goal state.
+     * @param startPoint: the starting State of the search.
+     * @return The ArrayList of Strings representing the states followed from start to goal State.
+     */
+    public double findSolutionPathCost(Node curNode, State startPoint) {
+        double pathCost = 0.0;
+        Node n1, n2;
+        n1 = curNode;
+        n2 = n1.getParentNode();
+        while (n1.getState().getD() != startPoint.getD() && n1.getState().getAngle() != startPoint.getAngle()) {
+            if (n1.getState().getD() == n2.getState().getD()) {
+                pathCost += (2 * Math.PI * n1.getState().getD()) / 8;
+            }
+            else {
+                pathCost += 1.0;
+            }
+            n1 = n2;
+            n2 = n1.getParentNode();
+        }
+        return pathCost;
+    }
+
+    /**
      * Prints the solution to the command line, including the complete flight instructions, the current Node, the path
      * followed to get from the start State to the goal State, and the States explored during the search.
      *
@@ -169,10 +195,10 @@ abstract class GeneralSearch {
     public void printSolution(Node currentNode, Problem problem, String searchType, double runTime) {
         System.out.println("\nPath found using " + searchType + " in " + runTime + " ms!");
         System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
-        System.out.println("\nCurrent node: " + currentNode);
         ArrayList<String> solutionPath = findSolutionPath(currentNode);
         System.out.println("Path followed (" + solutionPath.size() + "): " + solutionPath.toString());
-        System.out.println(getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
+        System.out.println("Solution path cost: " + findSolutionPathCost(currentNode, problem.getStartPoint()));
+        System.out.println("\n" + getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
     }
 
     /* Getters & Setters ******************************************************************************************** */

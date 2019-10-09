@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ *
+ * Abstract method working as a template for uninformed search algorithm implementations. Contains methods common to all
+ * uninformed search algorithms, and methods specific to each algorithm implementation which are developed in their
+ * respective concrete classes.
+ *
+ * @author adam jaamour (agj6)
+ *
+ */
 abstract class UninformedSearch extends GeneralSearch {
 
     /**
