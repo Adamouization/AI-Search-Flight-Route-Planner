@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="v BestF" type="Application" factoryName="Application" folderName="BestF">
+    <option name="MAIN_CLASS_NAME" value="A1Main" />
+    <module name="CS5011-A1-Search-Flight-Route-Planner" />
+    <option name="PROGRAM_PARAMETERS" value="BestF 8 1,135 5,135" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
