@@ -37,7 +37,6 @@ public class DFS extends UninformedSearch {
             exploredSet.add(curNode);
             if (goalTest(curNode, problem.getEndPoint())) {
                 setExploredSet(exploredSet);
-                Helper.printFrontierList(frontier); // Print the frontier at each step.
                 return curNode;
             }
             else {
