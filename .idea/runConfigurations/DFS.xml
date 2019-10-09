@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DFS" type="CompoundRunConfigurationType">
+    <toRun name="ii BestF" type="Application" />
+    <toRun name="i BestF" type="Application" />
+    <toRun name="x BestF" type="Application" />
+    <toRun name="v BestF" type="Application" />
+    <toRun name="ix BestF" type="Application" />
+    <toRun name="vii BestF" type="Application" />
+    <toRun name="iii BestF" type="Application" />
+    <toRun name="iv BestF" type="Application" />
+    <toRun name="viii BestF" type="Application" />
+    <toRun name="vi BestF" type="Application" />
+    <method v="2" />
+  </configuration>
+</component>
