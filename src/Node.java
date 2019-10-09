@@ -43,7 +43,7 @@ public class Node implements Comparable<Node> {
      */
     @Override
     public String toString() {
-        // return this.state.toString() + " - " + this.pathCost;
+        //return this.state.toString() + " " + Math.round(this.pathCost);
         return this.state.toString();
     }
 

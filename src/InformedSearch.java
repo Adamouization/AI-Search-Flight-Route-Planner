@@ -12,6 +12,8 @@ import java.util.PriorityQueue;
  */
 abstract class InformedSearch extends GeneralSearch {
 
+    private double heuristicG, heuristicH, heuristicF;
+
     /**
      * Creates a new Node, linking it to the parent node. Takes path cost into account to perform informed search. Uses
      * PriorityQueue to represent the Frontier.
@@ -43,7 +45,18 @@ abstract class InformedSearch extends GeneralSearch {
 
         // Calculate and set path cost.
         try {
-            node.setPathCost(estimateCostFromNodeToGoal(curNode.getState(), problem.getEndPoint()));
+            heuristicH = estimateCostFromNodeToGoal(curNode.getState(), problem.getEndPoint());
+            // A* Search.
+            if (problem.getSearchType().equals("AStar")) {
+                heuristicG = findSolutionPathCost(curNode, problem.getStartPoint());
+                heuristicF = heuristicG + heuristicH;
+                node.setPathCost(heuristicF);
+            }
+            // BestF Search.
+            else {
+                node.setPathCost(heuristicH);
+            }
+
         }
         catch (NullPointerException e)  {
             node.setPathCost(0.0);
