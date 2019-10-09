@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="x BestF" type="Application" factoryName="Application" folderName="BestF">
+    <output_file path="$PROJECT_DIR$/results/bestf_x.txt" is_save="true" />
     <option name="MAIN_CLASS_NAME" value="A1Main" />
     <module name="CS5011-A1-Search-Flight-Route-Planner" />
     <option name="PROGRAM_PARAMETERS" value="BestF 10 7,270 7,90" />
