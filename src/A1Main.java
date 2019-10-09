@@ -18,7 +18,8 @@ public class A1Main {
     public static void main(String[] args) {
 
         // Declare and initialise variables.
-        long startTime, endTime, runTime;
+        long startTime, endTime;
+        double runTime;
         String searchType = "";
         Problem problem = new Problem();
         LinkedList<LinkedList<State>> world;
@@ -119,7 +120,7 @@ public class A1Main {
                 BFS bfs = new BFS();
                 currentNode = bfs.treeSearch(problem, uninformedSearchFrontier);
                 endTime = System.nanoTime();
-                runTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
+                runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 bfs.printSolution(currentNode, problem, searchType, runTime);
                 break;
             case "DFS":
@@ -127,7 +128,7 @@ public class A1Main {
                 DFS dfs = new DFS();
                 currentNode = dfs.treeSearch(problem, uninformedSearchFrontier);
                 endTime = System.nanoTime();
-                runTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
+                runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 dfs.printSolution(currentNode, problem, searchType, runTime);
                 break;
             case "BestF":
@@ -135,7 +136,7 @@ public class A1Main {
                 BestF bestF = new BestF();
                 currentNode = bestF.treeSearch(problem, informedSearchFrontier);
                 endTime = System.nanoTime();
-                runTime = TimeUnit.NANOSECONDS.toMillis(endTime - startTime);
+                runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 bestF.printSolution(currentNode, problem, searchType, runTime);
                 break;
             case "AStar":

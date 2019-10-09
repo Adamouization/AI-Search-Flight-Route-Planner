@@ -166,7 +166,7 @@ abstract class GeneralSearch {
      *
      * @param currentNode: the current Node, which matches the goal Node.
      */
-    public void printSolution(Node currentNode, Problem problem, String searchType, long runTime) {
+    public void printSolution(Node currentNode, Problem problem, String searchType, double runTime) {
         System.out.println("\nPath found using " + searchType + " in " + runTime + " ms!");
         System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
         System.out.println("\nCurrent node: " + currentNode);
