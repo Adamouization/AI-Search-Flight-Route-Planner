@@ -78,7 +78,7 @@ abstract class InformedSearch extends GeneralSearch {
     }
 
     /**
-     * Estimates the Euclidian distance from the current State to the goal State.
+     * Estimates the Euclidian distance in polar coordinates from the current State to the goal State.
      *
      * @param curState State going to.
      * @param goalState State coming from.

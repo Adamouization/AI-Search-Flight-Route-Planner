@@ -13,7 +13,9 @@ public class A1Main {
 
     /**
      * Program entry point. Parses command line input.
+     *
      * @param args command line arguments.
+     * @throws NumberFormatException if an invalid input is passed for the world size.
      */
     public static void main(String[] args) {
 
@@ -140,7 +142,12 @@ public class A1Main {
                 bestF.printSolution(currentNode, problem, searchType, runTime);
                 break;
             case "AStar":
-                // todo
+                informedSearchFrontier = new PriorityQueue<>();
+                AStar aStar = new AStar();
+                currentNode = aStar.treeSearch(problem, informedSearchFrontier);
+                endTime = System.nanoTime();
+                runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
+                aStar.printSolution(currentNode, problem, searchType, runTime);
                 break;
         }
 
