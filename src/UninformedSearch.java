@@ -31,16 +31,17 @@ abstract class UninformedSearch extends GeneralSearch {
         );
 
         while (!frontier.isEmpty()) {
+            iteration++;
             curNode = removeFrontierNode(frontier);
             exploredSet.add(curNode);
             if (goalTest(curNode, problem.getEndPoint())) {
                 setExploredSet(exploredSet);
+                printUninformedSearchStatus(curNode, frontier, exploredSet, iteration);
                 return curNode;
             }
             else {
                 insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
             }
-            iteration++;
             printUninformedSearchStatus(curNode, frontier, exploredSet, iteration);
         }
 
