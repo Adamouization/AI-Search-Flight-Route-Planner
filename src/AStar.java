@@ -68,7 +68,19 @@ public class AStar extends InformedSearch {
         ArrayList<State> nextStates = successor(node.getState(), problem);
 
         for (State state: nextStates) {
-            // todo if state is in a node in frontier but with higher PATH-COST then replace old node with nd
+
+            newNode = makeNode(node, state.getD(), state.getAngle(), problem);
+
+            // If state is in a node in frontier but with a higher path cost, then old node is replaced with new/cheaper one.
+            if (isNodeInQueueFrontier(frontier, state)) {
+                for (Node n: frontier) {
+                    if (newNode.getPathCost() < n.getPathCost()) {
+                        frontier.remove(n);
+                        successorsSet.add(newNode);
+                        break;
+                    }
+                }
+            }
             if (!(isNodeInQueueFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {
                 newNode = makeNode(node, state.getD(), state.getAngle(), problem);
                 successorsSet.add(newNode);

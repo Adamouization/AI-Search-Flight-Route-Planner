@@ -88,6 +88,8 @@ abstract class InformedSearch extends GeneralSearch {
         return false;
     }
 
+    /* Private Methods  ********************************************************************************************* */
+
     /**
      * Estimates the Euclidian distance in polar coordinates from the current State to the goal State.
      *
