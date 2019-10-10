@@ -23,7 +23,6 @@ abstract class InformedSearch extends GeneralSearch {
 
         // Local variables used throughout the search.
         Node curNode;
-        int iteration = 0; // Count number of loops
         ArrayList<Node> exploredSet = getExploredSet();
 
         // Create and add the root node to the frontier.
@@ -90,7 +89,6 @@ abstract class InformedSearch extends GeneralSearch {
             else {
                 node.setPathCost(heuristicH);
             }
-
         }
         catch (NullPointerException e)  {
             node.setPathCost(0.0);

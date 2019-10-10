@@ -13,6 +13,7 @@ abstract class GeneralSearch {
 
     // Declare and initialise variables.
     int nodesCreated = 0;
+    int iteration = 0; // Count number of search loops.
     private ArrayList<Node> exploredSet = new ArrayList<>(); // List of explored nodes.
 
     /**
@@ -112,12 +113,12 @@ abstract class GeneralSearch {
     /**
      * Checks that a node is in the set of explored Nodes.
      *
-     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
+     * @param explored An ArrayList of Nodes representing the Nodes that have already been expanded.
      * @param state The State to check that is in the exploredSet.
      * @return A Boolean indicating if the Node is already in the set of explored Nodes.
      */
-    public boolean isNodeInExploredSet(ArrayList<Node> exploredSet, State state) {
-        for (Node n: exploredSet) {
+    public boolean isNodeInExploredSet(ArrayList<Node> explored, State state) {
+        for (Node n: explored) {
             if (n.getState().getD() == state.getD() && n.getState().getAngle() == state.getAngle()) {
                 return true;
             }

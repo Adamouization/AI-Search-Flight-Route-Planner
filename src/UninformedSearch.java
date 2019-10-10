@@ -13,7 +13,7 @@ import java.util.LinkedList;
 abstract class UninformedSearch extends GeneralSearch {
 
     /**
-     * The main search method for the BFS algorithm.
+     * The main search method for uninformed algorithms such as BFS or DFS.
      *
      * @param problem The problem data structure, containing initialisation parameters.
      * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
@@ -23,7 +23,6 @@ abstract class UninformedSearch extends GeneralSearch {
 
         // Local variables used throughout the search.
         Node curNode;
-        int iteration = 0; // Count number of loops
         ArrayList<Node> exploredSet = getExploredSet();
 
         // Create and add the root node to the frontier.
