@@ -147,6 +147,9 @@ public class A1Main {
                 uninformedSearchFrontier = new LinkedList<>();
                 BFS bfs = new BFS();
                 currentNode = bfs.treeSearch(problem, uninformedSearchFrontier, obstacles);
+                if (currentNode == null) {
+                    Helper.noSolutionFound(problem);
+                }
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 bfs.printSolution(currentNode, problem, runTime);
@@ -156,6 +159,9 @@ public class A1Main {
                 uninformedSearchFrontier = new LinkedList<>();
                 DFS dfs = new DFS();
                 currentNode = dfs.treeSearch(problem, uninformedSearchFrontier, obstacles);
+                if (currentNode == null) {
+                    Helper.noSolutionFound(problem);
+                }
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 dfs.printSolution(currentNode, problem, runTime);
@@ -165,6 +171,9 @@ public class A1Main {
                 informedSearchFrontier = new PriorityQueue<>();
                 BestF bestF = new BestF();
                 currentNode = bestF.treeSearch(problem, informedSearchFrontier, obstacles);
+                if (currentNode == null) {
+                    Helper.noSolutionFound(problem);
+                }
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 bestF.printSolution(currentNode, problem, runTime);
@@ -174,6 +183,9 @@ public class A1Main {
                 informedSearchFrontier = new PriorityQueue<>();
                 AStar aStar = new AStar();
                 currentNode = aStar.treeSearch(problem, informedSearchFrontier, obstacles);
+                if (currentNode == null) {
+                    Helper.noSolutionFound(problem);
+                }
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 aStar.printSolution(currentNode, problem, runTime);

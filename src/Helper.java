@@ -67,4 +67,15 @@ public class Helper {
         System.exit(1); // System exit with an error code.
     }
 
+    /**
+     * Prints an error message stating that no solution has been found.
+     *
+     * @param problem The problem structure.
+     */
+    public static void noSolutionFound(Problem problem) {
+        System.err.println("\nNo path from " + problem.getStartPoint() + " to " + problem.getEndPoint() + " found!");
+        System.err.println("Try removing obstacles to allow the algorithm to find a route.");
+        System.exit(1);
+    }
+
 }
