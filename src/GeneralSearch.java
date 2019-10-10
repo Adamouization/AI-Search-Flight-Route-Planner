@@ -203,26 +203,22 @@ abstract class GeneralSearch {
     }
 
     /**
-     * Calculates the cost of the path found from start to goal States.
+     * Calculates the cost of the path from start to goal States.
      *
      * @param curNode: the current Node with Goal state.
-     * @param startPoint: the starting State of the search.
-     * @return The ArrayList of Strings representing the states followed from start to goal State.
+     * @return The cost from the current Node to the root Node.
      */
-    public double findSolutionPathCost(Node curNode, State startPoint) {
+    public double findSolutionPathCost(Node curNode) {
         double pathCost = 0.0;
-        Node n1, n2;
-        n1 = curNode;
-        n2 = n1.getParentNode();
-        while (n1.getState().getD() != startPoint.getD() && n1.getState().getAngle() != startPoint.getAngle()) {
-            if (n1.getState().getD() == n2.getState().getD()) {
-                pathCost += (2 * Math.PI * n1.getState().getD()) / 8;
+        Node n = curNode;
+        while (n.getParentNode() != null) {
+            if (n.getState().getD() == n.getParentNode().getState().getD()) {
+                pathCost += (2 * Math.PI * n.getState().getD()) / 8;
             }
             else {
                 pathCost += 1.0;
             }
-            n1 = n2;
-            n2 = n1.getParentNode();
+            n = n.getParentNode();
         }
         return pathCost;
     }
@@ -240,7 +236,7 @@ abstract class GeneralSearch {
         System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
         ArrayList<String> solutionPath = findSolutionPath(currentNode);
         System.out.println("Path followed (" + solutionPath.size() + "): " + solutionPath.toString());
-        double pathCost = Math.round(findSolutionPathCost(currentNode, problem.getStartPoint()) * 1000.0) / 1000.0;
+        double pathCost = Math.round(findSolutionPathCost(currentNode) * 1000.0) / 1000.0;
         System.out.println("Solution path cost: " + pathCost);
         System.out.println("\nNodes created: " + nodesCreated);
         System.out.println(getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());

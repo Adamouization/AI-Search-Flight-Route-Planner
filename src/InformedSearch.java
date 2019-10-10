@@ -81,7 +81,7 @@ abstract class InformedSearch extends GeneralSearch {
             double heuristicH = estimateCostFromNodeToGoal(curNode.getState(), problem.getEndPoint());
             // A* Search.
             if (problem.getSearchType().equals("AStar")) {
-                double heuristicG = findSolutionPathCost(curNode, problem.getStartPoint());
+                double heuristicG = findSolutionPathCost(curNode);
                 double heuristicF = heuristicG + heuristicH;
                 node.setPathCost(heuristicF);
             }
