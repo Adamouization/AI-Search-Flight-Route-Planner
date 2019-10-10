@@ -74,7 +74,7 @@ abstract class UninformedSearch extends GeneralSearch {
 
         // Determine and set node's action.
         if (node.getParentNode() != null) {
-            node.setAction(Helper.getActionFromState(node));
+            node.setAction(getActionFromState(node));
         }
 
         // No need to setup path cost because performing uninformed search.

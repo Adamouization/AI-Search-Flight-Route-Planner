@@ -100,6 +100,45 @@ abstract class GeneralSearch {
     }
 
     /**
+     * Determines the action based on the current Node's State and its parent Node's State.
+     *
+     * @param node The current Node.
+     * @return The action used to move from the parent Node's State to the current Node's State.
+     */
+    public String getActionFromState(Node node) {
+        // Same parallel, so different meridian (either E or W).
+        if (node.getState().getD() == node.getParentNode().getState().getD()) {
+            // Current node angle is bigger than parent node angle, so moved E.
+            if (node.getState().getAngle() - node.getParentNode().getState().getAngle() > 0) {
+                // Take care of special case looping from 0 to 315 degrees, which is going Wget.
+                if (node.getState().getAngle() == 315 && node.getParentNode().getState().getAngle() == 0) {
+                    return "H270";
+                }
+                return "H90";
+            }
+            // Current node angle is smaller than parent node angle, so moved W.
+            else {
+                // Take care of special case looping from 315 to 0 degrees, which is going E.
+                if (node.getState().getAngle() == 0 && node.getParentNode().getState().getAngle() == 315) {
+                    return "H90";
+                }
+                return "H270";
+            }
+        }
+        // Different parallel (either N or S).
+        else {
+            // Current node parallel is bigger than parent node parallel, so moved S.
+            if (node.getState().getD() - node.getParentNode().getState().getD() > 0) {
+                return "H180";
+            }
+            // Current node parallel is smaller than parent node parallel, so moved N.
+            else {
+                return "H360";
+            }
+        }
+    }
+
+    /**
      * Test to check that the current node's state is the goal state.
      *
      * @param curPoint The current node.
@@ -149,7 +188,7 @@ abstract class GeneralSearch {
      *
      * @param goalNode: the goal Node.
      * @return The ArrayList of Strings representing the states followed from start to goal State.
-     * @see Helper#getActionFromState(Node)
+     * @see #getActionFromState(Node)
      */
     public ArrayList<String> findFlightInstructions(Node goalNode) {
         ArrayList<String> flightInstruction = new ArrayList<>();

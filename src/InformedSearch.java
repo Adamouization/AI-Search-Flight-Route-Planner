@@ -73,7 +73,7 @@ abstract class InformedSearch extends GeneralSearch {
 
         // Determine and set node's action.
         if (node.getParentNode() != null) {
-            node.setAction(Helper.getActionFromState(node));
+            node.setAction(getActionFromState(node));
         }
 
         // Calculate and set path cost.
