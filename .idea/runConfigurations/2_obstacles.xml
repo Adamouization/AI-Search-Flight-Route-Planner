@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="obstacles" type="Application" factoryName="Application" folderName="Tests">
+  <configuration default="false" name="2 obstacles" type="Application" factoryName="Application" folderName="Obstacles">
     <option name="MAIN_CLASS_NAME" value="A1Main" />
     <module name="CS5011-A1-Search-Flight-Route-Planner" />
-    <option name="PROGRAM_PARAMETERS" value="BFS 4 1,45 3,225 1,90 1,0 2,45" />
+    <option name="PROGRAM_PARAMETERS" value="BFS 4 1,45 3,225 1,90 1,0" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
