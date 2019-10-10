@@ -3,7 +3,8 @@ import java.util.LinkedList;
 
 /**
  *
- * Breadth-First Search implementation. Extends the Search abstract class. Uses LinkedLists to represent the Frontier.
+ * Depth-First Search implementation. Extends the UninformedSearch abstract class. Uses LinkedLists to represent the
+ * Frontier.
  *
  * @author adam jaamour (agj6)
  *
@@ -11,73 +12,7 @@ import java.util.LinkedList;
 public class DFS extends UninformedSearch {
 
     /**
-     * The main search method for the BFS algorithm.
-     *
-     * @param problem The problem data structure, containing initialisation parameters.
-     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
-     * @return The current Node when a goal State is reached.
-     */
-    @Override
-    public Node treeSearch(Problem problem, LinkedList<Node> frontier) {
-        System.out.println("Starting Depth-First Search...");
-
-        // Local variables used throughout the search.
-        Node curNode;
-        int iteration = 0; // Count number of loops
-        ArrayList<Node> exploredSet = getExploredSet();
-
-        // Create and add the root node to the frontier.
-        frontier.add(
-                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle(), problem)
-        );
-
-        while (!frontier.isEmpty()) {
-            curNode = removeFrontierNode(frontier);
-            exploredSet.add(curNode);
-            if (goalTest(curNode, problem.getEndPoint())) {
-                setExploredSet(exploredSet);
-                return curNode;
-            }
-            else {
-                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
-            }
-            iteration++;
-            printUninformedSearchStatus(curNode, frontier, exploredSet, iteration);
-        }
-
-        return null; // If frontier is empty, return null (no solution found).
-    }
-
-    /**
-     * Finds the valid moves from the current State, and creates new children Nodes to add to the Frontier if they
-     * aren't in the Frontier yet and if they haven't been visited yet.
-     *
-     * @param node The current Node to expand to find children Nodes.
-     * @param problem The problem data structure, containing initialisation parameters.
-     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
-     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
-     * @return An ArrayList of Nodes with the children Nodes to add to the Frontier.
-     */
-    @Override
-    public ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier, ArrayList<Node> exploredSet) {
-
-        // Local variables.
-        ArrayList<Node> successorsSet = new ArrayList<>();
-        Node newNode;
-
-        ArrayList<State> nextStates = successor(node.getState(), problem);
-
-        for (State state: nextStates) {
-            if (!(isNodeInListFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {
-                newNode = makeNode(node, state.getD(), state.getAngle(), problem);
-                successorsSet.add(newNode);
-            }
-        }
-        return successorsSet;
-    }
-
-    /**
-     * Implements a FIFO queue by pushing new Nodes at the end of Queue.
+     * Implements a LIFO queue by pushing new Nodes at the beginning of the queue.
      *
      * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
      * @param nodes The Nodes to push to the Frontier.
@@ -85,19 +20,8 @@ public class DFS extends UninformedSearch {
      */
     @Override
     public LinkedList<Node> insertFrontierNodes(LinkedList<Node> frontier, ArrayList<Node> nodes) {
-        frontier.addAll(0, nodes); // Add nodes at the end of the queue (FIFO).
+        frontier.addAll(0, nodes); // Add nodes at the end of the queue (LIFO).
         return frontier;
-    }
-
-    /**
-     * Implements a FIFO queue by popping a Node from the front of the queue.
-     *
-     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
-     * @return The updated Frontier without the Node being currently explored.
-     */
-    @Override
-    public Node removeFrontierNode(LinkedList<Node> frontier) {
-        return frontier.removeFirst(); // Remove the first node from the queue (FIFO).
     }
 
 }

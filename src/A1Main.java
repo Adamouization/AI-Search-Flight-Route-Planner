@@ -117,6 +117,7 @@ public class A1Main {
         Node currentNode;
         switch (problem.getSearchType()) {
             case "BFS":
+                System.out.println("Starting Breadth-First Search...");
                 uninformedSearchFrontier = new LinkedList<>();
                 BFS bfs = new BFS();
                 currentNode = bfs.treeSearch(problem, uninformedSearchFrontier);
@@ -125,6 +126,7 @@ public class A1Main {
                 bfs.printSolution(currentNode, problem, runTime);
                 break;
             case "DFS":
+                System.out.println("Starting Depth-First Search...");
                 uninformedSearchFrontier = new LinkedList<>();
                 DFS dfs = new DFS();
                 currentNode = dfs.treeSearch(problem, uninformedSearchFrontier);
