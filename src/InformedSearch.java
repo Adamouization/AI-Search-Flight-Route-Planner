@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -88,6 +89,22 @@ abstract class InformedSearch extends GeneralSearch {
         return false;
     }
 
+    /**
+     * Prints the current status of the informed search algorithm to the command line, including the iteration, the
+     * Frontier (PriorityQueue) and the set of explored states.
+     *
+     * @param node The current Node being expanded.
+     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
+     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
+     * @param iteration The current search loop number.
+     */
+    public static void printInformedSearchStatus(Node node, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet, int iteration) {
+        System.out.println("Iteration #" + iteration + " -------------------------");
+        System.out.println("Current node: " + node.toString());
+        printFrontierWithCosts(frontier);
+        System.out.println("Explored States: " + exploredSet.toString());
+    }
+
     /* Private Methods  ********************************************************************************************* */
 
     /**
@@ -101,6 +118,19 @@ abstract class InformedSearch extends GeneralSearch {
         double pow = Math.pow(curState.getD(), 2) + Math.pow(goalState.getD(), 2);
         double cos = 2 * curState.getD() * goalState.getD() * Math.cos(goalState.getAngle() - curState.getAngle());
         return Math.sqrt(pow - cos);
+    }
+
+    /**
+     * Prints the Frontier with the costs associated to each Node.
+     *
+     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
+     */
+    private static void printFrontierWithCosts(PriorityQueue<Node> frontier) {
+        System.out.print("Frontier: [");
+        for (Node n: frontier) {
+            System.out.print(n.getState().toString() + " " + Math.round(n.getPathCost() * 1000.0) / 1000.0 + ", "); // Round to 3 decimal places.);
+        }
+        System.out.print("]\n");
     }
 
     /* Abstract Method Declarations ********************************************************************************* */

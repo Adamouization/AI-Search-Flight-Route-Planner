@@ -72,6 +72,22 @@ abstract class UninformedSearch extends GeneralSearch {
         return false;
     }
 
+    /**
+     * Prints the current status of the uninformed search algorithm to the command line, including the iteration, the
+     * Frontier (LinkedList) and the set of explored states.
+     *
+     * @param node The current Node being expanded.
+     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
+     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
+     * @param iteration The current search loop number.
+     */
+    public static void printUninformedSearchStatus(Node node, LinkedList<Node> frontier, ArrayList<Node> exploredSet, int iteration) {
+        System.out.println("Iteration #" + iteration + " -------------------------");
+        System.out.println("Current node: " + node.toString());
+        System.out.println("Frontier: " + frontier.toString());
+        System.out.println("Explored States: " + exploredSet.toString());
+    }
+
     /* Abstract Method Declarations ********************************************************************************* */
 
     abstract public Node treeSearch(Problem problem, LinkedList<Node> frontier);

@@ -23,14 +23,13 @@ public class AStar extends InformedSearch {
 
         // Local variables used throughout the search.
         Node curNode;
+        int iteration = 0; // Count number of loops
         ArrayList<Node> exploredSet = getExploredSet();
 
         // Create and add the root node to the frontier.
-        Helper.printFrontierQueue(frontier);
         frontier.add(
                 makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle(), problem)
         );
-        Helper.printFrontierQueue(frontier);
 
         while (!frontier.isEmpty()) {
             curNode = removeFrontierNode(frontier);
@@ -42,7 +41,8 @@ public class AStar extends InformedSearch {
             else {
                 insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
             }
-            Helper.printFrontierQueue(frontier);
+            iteration++;
+            printInformedSearchStatus(curNode, frontier, exploredSet, iteration);
         }
 
         return null; // If frontier is empty, return null (no solution found).

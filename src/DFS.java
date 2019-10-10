@@ -23,14 +23,13 @@ public class DFS extends UninformedSearch {
 
         // Local variables used throughout the search.
         Node curNode;
+        int iteration = 0; // Count number of loops
         ArrayList<Node> exploredSet = getExploredSet();
 
         // Create and add the root node to the frontier.
-        Helper.printFrontierList(frontier);
         frontier.add(
                 makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle(), problem)
         );
-        Helper.printFrontierList(frontier);
 
         while (!frontier.isEmpty()) {
             curNode = removeFrontierNode(frontier);
@@ -42,7 +41,8 @@ public class DFS extends UninformedSearch {
             else {
                 insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
             }
-            Helper.printFrontierList(frontier);
+            iteration++;
+            printUninformedSearchStatus(curNode, frontier, exploredSet, iteration);
         }
 
         return null; // If frontier is empty, return null (no solution found).

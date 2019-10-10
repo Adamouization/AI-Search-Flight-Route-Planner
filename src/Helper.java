@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 
 /**
  *
@@ -97,24 +96,6 @@ public class Helper {
             System.out.println("    "+ w);
         }
         System.out.println("]\n");
-    }
-
-    /**
-     * Prints the current Frontier (LinkedList) to the command line.
-     *
-     * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
-     */
-    public static void printFrontierList(LinkedList<Node> frontier) {
-        System.out.println("Frontier: " + frontier.toString());
-    }
-
-    /**
-     * Prints the current Frontier (PriorityQueue) to the command line.
-     *
-     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
-     */
-    public static void printFrontierQueue(PriorityQueue<Node> frontier) {
-        System.out.println("Frontier: " + frontier.toString());
     }
 
     /**
