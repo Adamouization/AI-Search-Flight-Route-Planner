@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /**
@@ -12,6 +11,42 @@ import java.util.PriorityQueue;
  *
  */
 abstract class InformedSearch extends GeneralSearch {
+
+    /**
+     * The main search method for informed algorithms such as BestF or A*.
+     *
+     * @param problem The problem data structure, containing initialisation parameters.
+     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
+     * @return The current Node when a goal State is reached.
+     */
+    public Node treeSearch(Problem problem, PriorityQueue<Node> frontier) {
+
+        // Local variables used throughout the search.
+        Node curNode;
+        int iteration = 0; // Count number of loops
+        ArrayList<Node> exploredSet = getExploredSet();
+
+        // Create and add the root node to the frontier.
+        frontier.add(
+                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle(), problem)
+        );
+
+        while (!frontier.isEmpty()) {
+            curNode = removeFrontierNode(frontier);
+            exploredSet.add(curNode);
+            if (goalTest(curNode, problem.getEndPoint())) {
+                setExploredSet(exploredSet);
+                return curNode;
+            }
+            else {
+                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
+            }
+            iteration++;
+            printInformedSearchStatus(curNode, frontier, exploredSet, iteration);
+        }
+
+        return null; // If frontier is empty, return null (no solution found).
+    }
 
     /**
      * Creates a new Node, linking it to the parent node. Takes path cost into account to perform informed search. Uses
@@ -89,23 +124,29 @@ abstract class InformedSearch extends GeneralSearch {
         return false;
     }
 
+    /* Private Methods  ********************************************************************************************* */
+
     /**
-     * Prints the current status of the informed search algorithm to the command line, including the iteration, the
-     * Frontier (PriorityQueue) and the set of explored states.
+     * Adds new Nodes to the PriorityQueue based on their path cost.
      *
-     * @param node The current Node being expanded.
      * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
-     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
-     * @param iteration The current search loop number.
+     * @param nodes The Nodes to push to the Frontier.
+     * @return The updated Frontier with the new Nodes to explore in the future.
      */
-    public static void printInformedSearchStatus(Node node, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet, int iteration) {
-        System.out.println("Iteration #" + iteration + " -------------------------");
-        System.out.println("Current node: " + node.toString());
-        printFrontierWithCosts(frontier);
-        System.out.println("Explored States: " + exploredSet.toString());
+    private PriorityQueue<Node> insertFrontierNodes(PriorityQueue<Node> frontier, ArrayList<Node> nodes) {
+        frontier.addAll(nodes);
+        return frontier;
     }
 
-    /* Private Methods  ********************************************************************************************* */
+    /**
+     * Popping a Node from the front of the queue, which is the the one with the highest priority.
+     *
+     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
+     * @return The updated Frontier without the Node being currently explored.
+     */
+    private Node removeFrontierNode(PriorityQueue<Node> frontier) {
+        return frontier.poll(); // Remove the node with the highest priority.
+    }
 
     /**
      * Estimates the Euclidian distance in polar coordinates from the current State to the goal State.
@@ -118,6 +159,22 @@ abstract class InformedSearch extends GeneralSearch {
         double pow = Math.pow(curState.getD(), 2) + Math.pow(goalState.getD(), 2);
         double cos = 2 * curState.getD() * goalState.getD() * Math.cos(goalState.getAngle() - curState.getAngle());
         return Math.sqrt(pow - cos);
+    }
+
+    /**
+     * Prints the current status of the informed search algorithm to the command line, including the iteration, the
+     * Frontier (PriorityQueue) and the set of explored states.
+     *
+     * @param node The current Node being expanded.
+     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
+     * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
+     * @param iteration The current search loop number.
+     */
+    private static void printInformedSearchStatus(Node node, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet, int iteration) {
+        System.out.println("Iteration #" + iteration + " -------------------------");
+        System.out.println("Current node: " + node.toString());
+        printFrontierWithCosts(frontier);
+        System.out.println("Explored States: " + exploredSet.toString());
     }
 
     /**
@@ -135,12 +192,6 @@ abstract class InformedSearch extends GeneralSearch {
 
     /* Abstract Method Declarations ********************************************************************************* */
 
-    abstract public Node treeSearch(Problem problem, PriorityQueue<Node> frontier);
-
     abstract public ArrayList<Node> expand(Node node, Problem problem, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet);
-
-    abstract public PriorityQueue<Node> insertFrontierNodes(PriorityQueue<Node> frontier, ArrayList<Node> nodes);
-
-    abstract public Node removeFrontierNode(PriorityQueue<Node> frontier);
 
 }

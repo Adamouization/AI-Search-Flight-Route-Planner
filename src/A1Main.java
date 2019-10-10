@@ -135,6 +135,7 @@ public class A1Main {
                 dfs.printSolution(currentNode, problem, runTime);
                 break;
             case "BestF":
+                System.out.println("Starting Best-First Search...");
                 informedSearchFrontier = new PriorityQueue<>();
                 BestF bestF = new BestF();
                 currentNode = bestF.treeSearch(problem, informedSearchFrontier);
@@ -143,6 +144,7 @@ public class A1Main {
                 bestF.printSolution(currentNode, problem, runTime);
                 break;
             case "AStar":
+                System.out.println("Starting A* Search...");
                 informedSearchFrontier = new PriorityQueue<>();
                 AStar aStar = new AStar();
                 currentNode = aStar.treeSearch(problem, informedSearchFrontier);

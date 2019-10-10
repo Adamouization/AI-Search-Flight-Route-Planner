@@ -3,51 +3,13 @@ import java.util.PriorityQueue;
 
 /**
  *
- * Breadth-First Search implementation. Extends the Search abstract class. Uses PriorityQueues to represent the
+ * Best-First Search implementation. Extends the InformedSearch abstract class. Uses PriorityQueues to represent the
  * Frontier.
  *
  * @author adam jaamour (agj6)
  *
  */
 public class BestF extends InformedSearch {
-
-    /**
-     * The main search method for the BFS algorithm.
-     *
-     * @param problem The problem data structure, containing initialisation parameters.
-     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
-     * @return The current Node when a goal State is reached.
-     */
-    @Override
-    public Node treeSearch(Problem problem, PriorityQueue<Node> frontier) {
-        System.out.println("Starting Best-First Search...");
-
-        // Local variables used throughout the search.
-        Node curNode;
-        int iteration = 0; // Count number of loops
-        ArrayList<Node> exploredSet = getExploredSet();
-
-        // Create and add the root node to the frontier.
-        frontier.add(
-                makeNode(null, problem.getStartPoint().getD(), problem.getStartPoint().getAngle(), problem)
-        );
-
-        while (!frontier.isEmpty()) {
-            curNode = removeFrontierNode(frontier);
-            exploredSet.add(curNode);
-            if (goalTest(curNode, problem.getEndPoint())) {
-                setExploredSet(exploredSet);
-                return curNode;
-            }
-            else {
-                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
-            }
-            iteration++;
-            printInformedSearchStatus(curNode, frontier, exploredSet, iteration);
-        }
-
-        return null; // If frontier is empty, return null (no solution found).
-    }
 
     /**
      * Finds the valid moves from the current State, and creates new children Nodes to add to the Frontier if they
@@ -75,30 +37,6 @@ public class BestF extends InformedSearch {
             }
         }
         return successorsSet;
-    }
-
-    /**
-     * Implements a FIFO queue by pushing new Nodes at the end of Queue.
-     *
-     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
-     * @param nodes The Nodes to push to the Frontier.
-     * @return The updated Frontier with the new Nodes to explore in the future.
-     */
-    @Override
-    public PriorityQueue<Node> insertFrontierNodes(PriorityQueue<Node> frontier, ArrayList<Node> nodes) {
-        frontier.addAll(nodes);
-        return frontier;
-    }
-
-    /**
-     * Implements a FIFO queue by popping a Node from the front of the queue.
-     *
-     * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
-     * @return The updated Frontier without the Node being currently explored.
-     */
-    @Override
-    public Node removeFrontierNode(PriorityQueue<Node> frontier) {
-        return frontier.poll(); // Remove the node with the highest priority.
     }
 
 }
