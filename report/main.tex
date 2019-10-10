@@ -50,11 +50,57 @@
 
 \subsection{Overview}
 
-A checklist of the parts implemented and any extension attempted. If any of the functionalities is only partially working, ensure that this is discussed in your report.
+The Advanced Agent was attempted in this Practical. The following parts were implemented:
+\begin{itemize}
+    \item Basic Agent:
+    \begin{itemize}
+       \item Breadth-First Search
+        \item Depth-First Search
+    \end{itemize}
+    \item Intermediate Agent:
+    \begin{itemize}
+        \item Best-First Search
+        \item A* Search
+    \end{itemize}
+    \item Advanced Agent (1 extension):
+    \begin{itemize}
+        \item Weather obstacles
+    \end{itemize}
+\end{itemize}
 
 \subsection{Usage}
 
-Compiling and running instructions with examples
+\subsubsection{Compilation}
+
+To compile the program, navigate to the \textit{A1src} directory and run the following command:\\
+
+\textit{javac src/A1Main.java}.
+
+\subsubsection{Program Execution}
+
+Once the program has been compiled, it can be executed using the following command:\\
+
+\textit{java A1Main \textless search\_type\textgreater \textless world\_size\textgreater \textless start\_goal\textgreater \textless end\_goal\textgreater [\textless obstacles\textgreater]}, where:
+
+\begin{itemize}
+    \item \textit{search\_type} is the type of search algorithm used to find a route. It can take the following values: \textit{BFS}, \textit{DFS}, \textit{BestF}, \textit{AStar}. It is written as a String.
+    \item \textit{world\_size} is the size of the world, specified by the number of parallels. It is written as a positive integer.
+    \item \textit{start\_goal} is the starting point of the flight. It is written as a tuple of positive integers, e.g. \textit{(2,45)}.
+    \item \textit{end\_goal} is the goal point that the flight must reach. It is also written as a tuple of positive integers.
+    \item \textit{obstacles} is a number of locations in the world that the flight cannot take when looking for a route. They are also written as a tuple of positive integers. There can be any number of obstacles, ranging from 0 to the limit set by the Java Virtual Machine.
+\end{itemize}
+
+\subsubsection{Examples}
+
+Here are a few examples that can be used to run the program:
+
+\begin{itemize}
+    \item Running BFS with no obstacles: \textit{``java A1Main BFS 5 2,45 3,225''}
+    \item Running DFS with no obstacles: \textit{``java A1Main DFS 8 1,315 5,270''}
+    \item Running BestF with 1 obstacle: \textit{``java A1Main BestF 4 1,45 3,225 1,90''}
+    \item Running A* with 2 obstacles: \textit{``java A1Main AStar 4 1,45 3,225 1,90 1,0''}
+    \item Running BFS with no possible solution: \textit{``java A1Main BFS 4 1,45 3,225 1,90 1,0 2,45''}
+\end{itemize}
 
 % -------------------------- 2 - DESIGN - IMPLEMENTATION - EVALUATION -------------------------------
 
