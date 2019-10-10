@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -17,9 +18,10 @@ abstract class UninformedSearch extends GeneralSearch {
      *
      * @param problem The problem data structure, containing initialisation parameters.
      * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
+     * @param obstacles An ArrayList with obstacles present on the world.
      * @return The current Node when a goal State is reached.
      */
-    public Node treeSearch(Problem problem, LinkedList<Node> frontier) {
+    public Node treeSearch(Problem problem, LinkedList<Node> frontier, ArrayList<State> obstacles) {
 
         // Local variables used throughout the search.
         Node curNode;
@@ -40,7 +42,7 @@ abstract class UninformedSearch extends GeneralSearch {
                 return curNode;
             }
             else {
-                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
+                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet, obstacles));
             }
             printUninformedSearchStatus(curNode, frontier, exploredSet, iteration);
         }
@@ -104,14 +106,16 @@ abstract class UninformedSearch extends GeneralSearch {
      * @param frontier A LinkedList of Nodes representing the Nodes to expand next.
      * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
      * @return An ArrayList of Nodes with the children Nodes to add to the Frontier.
+     * @param obstacles An ArrayList with obstacles present on the world.
+     * @return An ArrayList of Nodes with the children Nodes to add to the Frontier.
      */
-    private ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier, ArrayList<Node> exploredSet) {
+    private ArrayList<Node> expand(Node node, Problem problem, LinkedList<Node> frontier, ArrayList<Node> exploredSet, ArrayList<State> obstacles) {
 
         // Local variables.
         ArrayList<Node> successorsSet = new ArrayList<>();
         Node newNode;
 
-        ArrayList<State> nextStates = successor(node.getState(), problem);
+        ArrayList<State> nextStates = successor(node.getState(), problem, obstacles);
 
         for (State state: nextStates) {
             if (!(isNodeInListFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -26,9 +27,10 @@ public class A1Main {
         LinkedList<LinkedList<State>> world;
         LinkedList<Node> uninformedSearchFrontier;
         PriorityQueue<Node> informedSearchFrontier;
+        ArrayList<State> obstacles = new ArrayList<>();
 
         // Parse command line arguments.
-        if (args.length == 4) {
+        if (args.length >= 4) {
 
             // Type of search algorithm to use.
             problem.setSearchType(args[0]);
@@ -80,9 +82,24 @@ public class A1Main {
                 Helper.errorMessage();
             }
 
+            // Parse user-selected obstacles (can accept any number).
+            if (args.length - 4 > 0) {
+                for (int i = 4; i < args.length; i++) {
+                    obstacles.add(
+                            new State(
+                                Integer.parseInt(args[i].split(",")[0]),
+                                Helper.getPointIndex(Integer.parseInt(args[i].split(",")[1])),
+                                Integer.parseInt(args[i].split(",")[1]),
+                                'X'
+                            )
+                    );
+                }
+            }
+
             // Debugging: print command line arguments.
             System.out.println("Search type: " + problem.getSearchType());
             problem.printArguments();
+            System.out.println("Obstacles located at: " + obstacles.toString() + "\n");
 
         }
         // Invalid number of arguments.
@@ -111,6 +128,11 @@ public class A1Main {
         world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setStatus('S');
         world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setStatus('G');
 
+        // Add obstacles on the world.
+        for (State o: obstacles) {
+            world.get(o.getD()).get(o.getIndex()).setStatus('X');
+        }
+
         // Print the entire world.
         //Helper.printWorld(world);
 
@@ -124,7 +146,7 @@ public class A1Main {
                 System.out.println("Starting Breadth-First Search...");
                 uninformedSearchFrontier = new LinkedList<>();
                 BFS bfs = new BFS();
-                currentNode = bfs.treeSearch(problem, uninformedSearchFrontier);
+                currentNode = bfs.treeSearch(problem, uninformedSearchFrontier, obstacles);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 bfs.printSolution(currentNode, problem, runTime);
@@ -133,7 +155,7 @@ public class A1Main {
                 System.out.println("Starting Depth-First Search...");
                 uninformedSearchFrontier = new LinkedList<>();
                 DFS dfs = new DFS();
-                currentNode = dfs.treeSearch(problem, uninformedSearchFrontier);
+                currentNode = dfs.treeSearch(problem, uninformedSearchFrontier, obstacles);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 dfs.printSolution(currentNode, problem, runTime);
@@ -142,7 +164,7 @@ public class A1Main {
                 System.out.println("Starting Best-First Search...");
                 informedSearchFrontier = new PriorityQueue<>();
                 BestF bestF = new BestF();
-                currentNode = bestF.treeSearch(problem, informedSearchFrontier);
+                currentNode = bestF.treeSearch(problem, informedSearchFrontier, obstacles);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 bestF.printSolution(currentNode, problem, runTime);
@@ -151,7 +173,7 @@ public class A1Main {
                 System.out.println("Starting A* Search...");
                 informedSearchFrontier = new PriorityQueue<>();
                 AStar aStar = new AStar();
-                currentNode = aStar.treeSearch(problem, informedSearchFrontier);
+                currentNode = aStar.treeSearch(problem, informedSearchFrontier, obstacles);
                 endTime = System.nanoTime();
                 runTime = (double) TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000;
                 aStar.printSolution(currentNode, problem, runTime);

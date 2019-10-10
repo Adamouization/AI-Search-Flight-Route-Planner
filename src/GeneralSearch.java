@@ -18,13 +18,14 @@ abstract class GeneralSearch {
 
     /**
      * Determines the next valid move that can be made from the current Node's state. Checks that the agent can move
-     * North, South, East and West from the current node's state.
+     * North, South, East and West from the current node's state. Avoids the pole and obstacles.
      *
      * @param state The state of the current node.
      * @param problem The problem structure.
+     * @param obstacles An ArrayList with obstacles present on the world.
      * @return A set of valid states that can be expanded next.
      */
-    public ArrayList<State> successor(State state, Problem problem) {
+    public ArrayList<State> successor(State state, Problem problem, ArrayList<State> obstacles) {
         ArrayList<State> childrenNodes = new ArrayList<>();
 
         // Move East (H90). If angle = 315 degrees, loop back to 0 degrees.
@@ -95,11 +96,21 @@ abstract class GeneralSearch {
             );
         }
 
-        // Cannot go to pole (0, 0)
+        // Cannot go to pole (0, 0).
         for (State s: childrenNodes) {
             if (s.getD() == 0 && s.getAngle() == 0) {
                 childrenNodes.remove(s);
                 break;
+            }
+        }
+
+        // Cannot go to obstacles.
+        for (State a: obstacles) {
+            for (State s: childrenNodes) {
+                if (s.getD() == a.getD() && s.getD() == a.getD()) {
+                    childrenNodes.remove(s);
+                    break;
+                }
             }
         }
 

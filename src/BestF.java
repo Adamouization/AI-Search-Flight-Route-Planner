@@ -19,16 +19,17 @@ public class BestF extends InformedSearch {
      * @param problem The problem data structure, containing initialisation parameters.
      * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
      * @param exploredSet An ArrayList of Nodes representing the Nodes that have already been expanded.
+     * @param obstacles An ArrayList with obstacles present on the world.
      * @return An ArrayList of Nodes with the children Nodes to add to the Frontier.
      */
     @Override
-    public ArrayList<Node> expand(Node node, Problem problem, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet) {
+    public ArrayList<Node> expand(Node node, Problem problem, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet, ArrayList<State> obstacles) {
 
         // Local variables.
         ArrayList<Node> successorsSet = new ArrayList<>();
         Node newNode;
 
-        ArrayList<State> nextStates = successor(node.getState(), problem);
+        ArrayList<State> nextStates = successor(node.getState(), problem, obstacles);
 
         for (State state: nextStates) {
             if (!(isNodeInQueueFrontier(frontier, state)) && !(isNodeInExploredSet(exploredSet, state))) {

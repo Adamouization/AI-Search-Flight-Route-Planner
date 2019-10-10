@@ -21,7 +21,6 @@ public class Problem {
         System.out.println("Size of world N: " + N);
         System.out.println("Start point: " + startPoint);
         System.out.println("End point: " + endPoint);
-        System.out.println();
     }
 
     /* Getters ****************************************************************************************************** */

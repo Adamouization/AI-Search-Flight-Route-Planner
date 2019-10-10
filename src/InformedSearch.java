@@ -17,9 +17,10 @@ abstract class InformedSearch extends GeneralSearch {
      *
      * @param problem The problem data structure, containing initialisation parameters.
      * @param frontier A PriorityQueue of Nodes representing the Nodes to expand next.
+     * @param obstacles An ArrayList with obstacles present on the world.
      * @return The current Node when a goal State is reached.
      */
-    public Node treeSearch(Problem problem, PriorityQueue<Node> frontier) {
+    public Node treeSearch(Problem problem, PriorityQueue<Node> frontier, ArrayList<State> obstacles) {
 
         // Local variables used throughout the search.
         Node curNode;
@@ -40,7 +41,7 @@ abstract class InformedSearch extends GeneralSearch {
                 return curNode;
             }
             else {
-                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet));
+                insertFrontierNodes(frontier, expand(curNode, problem, frontier, exploredSet, obstacles));
             }
             printInformedSearchStatus(curNode, frontier, exploredSet, iteration);
         }
@@ -191,6 +192,6 @@ abstract class InformedSearch extends GeneralSearch {
 
     /* Abstract Method Declarations ********************************************************************************* */
 
-    abstract public ArrayList<Node> expand(Node node, Problem problem, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet);
+    abstract public ArrayList<Node> expand(Node node, Problem problem, PriorityQueue<Node> frontier, ArrayList<Node> exploredSet, ArrayList<State> obstacles);
 
 }
