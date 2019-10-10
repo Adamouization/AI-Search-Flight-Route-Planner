@@ -192,14 +192,17 @@ abstract class GeneralSearch {
      * Prints the solution to the command line, including the complete flight instructions, the current Node, the path
      * followed to get from the start State to the goal State, and the States explored during the search.
      *
-     * @param currentNode: the current Node, which matches the goal Node.
+     * @param currentNode The current Node, which matches the goal Node.
+     * @param problem The problem structure.
+     * @param runTime the search runtime in ms (milliseconds).
      */
     public void printSolution(Node currentNode, Problem problem, double runTime) {
         System.out.println("\nPath found using " + problem.getSearchType() + " in " + runTime + " ms!");
         System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
         ArrayList<String> solutionPath = findSolutionPath(currentNode);
         System.out.println("Path followed (" + solutionPath.size() + "): " + solutionPath.toString());
-        System.out.println("Solution path cost: " + findSolutionPathCost(currentNode, problem.getStartPoint()));
+        double pathCost = Math.round(findSolutionPathCost(currentNode, problem.getStartPoint()) * 1000.0) / 1000.0;
+        System.out.println("Solution path cost: " + pathCost);
         System.out.println("\nNodes created: " + nodesCreated);
         System.out.println(getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
     }
