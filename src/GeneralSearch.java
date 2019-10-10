@@ -72,7 +72,7 @@ abstract class GeneralSearch {
         }
 
         // Move North (H360), but cannot go to pole (N=0).
-        if ( !(state.getD() == 1) ) {
+        if ( !(state.getD() == 0) && !(state.getAngle() == 0) ) {
             childrenNodes.add(
                     new State(
                             state.getD() - 1,
@@ -93,6 +93,14 @@ abstract class GeneralSearch {
                             state.getStatus()
                     )
             );
+        }
+
+        // Cannot go to pole (0, 0)
+        for (State s: childrenNodes) {
+            if (s.getD() == 0 && s.getAngle() == 0) {
+                childrenNodes.remove(s);
+                break;
+            }
         }
 
         // Return valid moves.
@@ -239,7 +247,7 @@ abstract class GeneralSearch {
         double pathCost = Math.round(findSolutionPathCost(currentNode) * 1000.0) / 1000.0;
         System.out.println("Solution path cost: " + pathCost);
         System.out.println("\nNodes created: " + nodesCreated);
-        System.out.println(getExploredSet().size() + "/" + ((problem.getN() - 1) * 8) + " states expanded: " + getExploredSet().toString());
+        System.out.println(getExploredSet().size() + "/" + ((problem.getN()) * 8) + " states expanded: " + getExploredSet().toString());
     }
 
     /* Getters & Setters ******************************************************************************************** */

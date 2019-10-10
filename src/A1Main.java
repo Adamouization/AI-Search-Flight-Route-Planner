@@ -94,12 +94,9 @@ public class A1Main {
         world = new LinkedList<>();
         LinkedList<State> parallel = new LinkedList<>();
 
-        // Add the pole.
-        parallel.add(new State(0, 0, 0, 'P'));
-        world.add(parallel);
 
         // Add the other parallels.
-        for (int i = 1; i < problem.getN(); i++) {
+        for (int i = 0; i < problem.getN(); i++) {
             parallel = new LinkedList<>();
             int index = 0;
             for (int j = 0; j <= 315; j += 45) {
@@ -109,7 +106,8 @@ public class A1Main {
             world.add(parallel);
         }
 
-        // Add Start and Goal points on the world.
+        // Add Start, Goal and Pole points on the world.
+        world.get(0).get(0).setStatus('P');
         world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setStatus('S');
         world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setStatus('G');
 
