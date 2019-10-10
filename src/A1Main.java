@@ -68,9 +68,15 @@ public class A1Main {
                     )
             );
 
+            // If the start point is located at the pole, then terminate program.
+            if (problem.getStartPoint().getAngle() == 0 && problem.getStartPoint().getD() == 0) {
+                System.err.println("invalid start located at pole (0,0) - flight is grounded");
+                Helper.errorMessage();
+            }
+
             // If the goal point is located at the pole, then terminate program.
-            if (problem.getStartPoint().getD() == 0 || problem.getEndPoint().getD() == 0) {
-                System.err.println("invalid goal located at pole (0,0)");
+            if (problem.getEndPoint().getAngle() == 0 && problem.getEndPoint().getD() == 0) {
+                System.err.println("invalid goal located at pole (0,0) - flight cannot reach it");
                 Helper.errorMessage();
             }
 
