@@ -1,0 +1,2 @@
+invalid goal located at pole (0, 0) - flight cannot reach it
+usage: java A1main <DFS|BFS|AStar|BestF|...> <N> <d_s,angle_s> <d_g,angle_g> [params]

@@ -1,0 +1,36 @@
+Search type: DFS
+Size of world N: 10
+Start point: (7, 270)
+End point: (7, 90)
+Obstacles located at: []
+
+Starting Depth-First Search...
+Iteration #1 -------------------------
+Current node: (7, 270)
+Frontier: [(7, 315), (7, 225), (6, 270), (8, 270)]
+Explored States: [(7, 270)]
+Iteration #2 -------------------------
+Current node: (7, 315)
+Frontier: [(7, 0), (6, 315), (8, 315), (7, 225), (6, 270), (8, 270)]
+Explored States: [(7, 270), (7, 315)]
+Iteration #3 -------------------------
+Current node: (7, 0)
+Frontier: [(7, 45), (6, 0), (8, 0), (6, 315), (8, 315), (7, 225), (6, 270), (8, 270)]
+Explored States: [(7, 270), (7, 315), (7, 0)]
+Iteration #4 -------------------------
+Current node: (7, 45)
+Frontier: [(7, 90), (6, 45), (8, 45), (6, 0), (8, 0), (6, 315), (8, 315), (7, 225), (6, 270), (8, 270)]
+Explored States: [(7, 270), (7, 315), (7, 0), (7, 45)]
+Iteration #5 -------------------------
+Current node: (7, 90)
+Frontier: [(6, 45), (8, 45), (6, 0), (8, 0), (6, 315), (8, 315), (7, 225), (6, 270), (8, 270)]
+Explored States: [(7, 270), (7, 315), (7, 0), (7, 45), (7, 90)]
+
+Path found using DFS in 2.948 ms!
+Flight instructions (4) : [H90, H90, H90, H90]
+Path followed (5 states): [(7, 270), (7, 315), (7, 0), (7, 45), (7, 90)]
+Solution path cost: 21.991
+
+Current node depth: 4
+Nodes created: 14
+5 states expanded: [(7, 270), (7, 315), (7, 0), (7, 45), (7, 90)]

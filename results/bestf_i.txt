@@ -1,0 +1,32 @@
+Search type: BestF
+Size of world N: 5
+Start point: (2, 0)
+End point: (2, 135)
+Obstacles located at: []
+
+Starting Best-First Search...
+Iteration #1 -------------------------
+Current node: (2, 0)
+Frontier: [(2, 45) 3.996, (2, 315) 3.996, (1, 0) 3.996, (3, 0) 3.996, ]
+Explored States: [(2, 0)]
+Iteration #2 -------------------------
+Current node: (2, 45)
+Frontier: [(2, 90) 3.404, (1, 45) 3.404, (3, 45) 3.404, (2, 315) 3.996, (3, 0) 3.996, (1, 0) 3.996, ]
+Explored States: [(2, 0), (2, 45)]
+Iteration #3 -------------------------
+Current node: (2, 90)
+Frontier: [(2, 135) 1.949, (3, 90) 1.949, (1, 90) 1.949, (1, 0) 3.996, (3, 0) 3.996, (3, 45) 3.404, (1, 45) 3.404, (2, 315) 3.996, ]
+Explored States: [(2, 0), (2, 45), (2, 90)]
+Iteration #4 -------------------------
+Current node: (2, 135)
+Frontier: [(3, 90) 1.949, (2, 315) 3.996, (1, 90) 1.949, (1, 0) 3.996, (3, 0) 3.996, (3, 45) 3.404, (1, 45) 3.404, ]
+Explored States: [(2, 0), (2, 45), (2, 90), (2, 135)]
+
+Path found using BestF in 7.166 ms!
+Flight instructions (3) : [H90, H90, H90]
+Path followed (4 states): [(2, 0), (2, 45), (2, 90), (2, 135)]
+Solution path cost: 4.712
+
+Current node depth: 3
+Nodes created: 11
+4 states expanded: [(2, 0), (2, 45), (2, 90), (2, 135)]
