@@ -71,14 +71,14 @@ public class A1Main {
             );
 
             // If the start point is located at the pole, then terminate program.
-            if (problem.getStartPoint().getAngle() == 0 && problem.getStartPoint().getD() == 0) {
-                System.err.println("invalid start located at pole (0,0) - flight is grounded");
+            if (problem.getStartPoint().getD() == 0) {
+                System.err.println("invalid start located at pole " + problem.getStartPoint().toString() + " - flight is grounded");
                 Helper.errorMessage();
             }
 
             // If the goal point is located at the pole, then terminate program.
-            if (problem.getEndPoint().getAngle() == 0 && problem.getEndPoint().getD() == 0) {
-                System.err.println("invalid goal located at pole (0,0) - flight cannot reach it");
+            if (problem.getEndPoint().getD() == 0) {
+                System.err.println("invalid goal located at pole " + problem.getEndPoint().toString() + " - flight cannot reach it");
                 Helper.errorMessage();
             }
 
@@ -111,9 +111,12 @@ public class A1Main {
         world = new LinkedList<>();
         LinkedList<State> parallel = new LinkedList<>();
 
+        // Add the pole.
+        parallel.add(new State(0, 0, 0, 'P'));
+        world.add(parallel);
 
         // Add the other parallels.
-        for (int i = 0; i < problem.getN(); i++) {
+        for (int i = 1; i < problem.getN(); i++) {
             parallel = new LinkedList<>();
             int index = 0;
             for (int j = 0; j <= 315; j += 45) {
@@ -124,7 +127,6 @@ public class A1Main {
         }
 
         // Add Start, Goal and Pole points on the world.
-        world.get(0).get(0).setStatus('P');
         world.get(problem.getStartPoint().getD()).get(problem.getStartPoint().getIndex()).setStatus('S');
         world.get(problem.getEndPoint().getD()).get(problem.getEndPoint().getIndex()).setStatus('G');
 
@@ -134,7 +136,7 @@ public class A1Main {
         }
 
         // Print the entire world.
-        //Helper.printWorld(world);
+        Helper.printWorld(world);
 
         // Start measuring time.
         startTime = System.nanoTime();
