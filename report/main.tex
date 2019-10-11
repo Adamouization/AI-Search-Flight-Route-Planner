@@ -11,7 +11,6 @@
 \usepackage{color} % defines colors for code listings
 \usepackage{comment} % allows for block of comments
 \usepackage{gensymb} % degree symbol
-\usepackage{rotating} % horizontal figure
 \usepackage[final]{hyperref} % adds hyper links inside the generated pdf file
 
 % style code listings
@@ -113,15 +112,17 @@ Here are a few examples that can be used to run the program:
 
 \subsection{Design \& Implementation}
 
+% ----------------------------------
+
 \subsubsection{PEAS Model}
 
-\textbf{Performance measure}: The total path length from initial to goal state, the path cost, the number of states explored, the depth of the tree, and the runtime.\\
+\paragraph{Performance measure} The path length from initial to goal state, the path cost, the number of states explored, the depth of the tree, the number of nodes created, and the runtime.
 
-\textbf{Environment}: A world of size N, which represents the number of parallels. Each parallel is divided in 8 meridians, ranging from 0 to 360 degrees, as depicted in Figure \ref{fig:map}.\\
+\paragraph{Environment} A circular world of size N, which represents the number of parallels. Each parallel is divided in 8 meridians, ranging from 0 to 360 degrees, as depicted in Figure \ref{fig:map}.
 
-\textbf{Actuators}: The flight can move in one of four directions at a time (see Figure \ref{fig:map}. It can move East (H90) by adding 45\degree, move West (H270) by subtracting 45\degree, move North (H360) towards the centre, or move South (H180) towards the extremity of the world.\\
+\paragraph{Actuators} Moving in of the four following directions, as per Figure \ref{fig:map}: East (H90), South (H180), West (H270) and North (H360).
 
-\textbf{Sensors}: Seeing in any of the four aforementioned directions from a state in the world.
+\paragraph{Sensors} The flight can see in any of the four aforementioned directions from a state in the world. It also knows if the move is valid based on a set of rules specified in Section \ref{sec:problem_definition}.
 
 \begin{figure}[ht]
 \centering
@@ -129,51 +130,89 @@ Here are a few examples that can be used to run the program:
 \caption{\label{fig:map}A visualisation of a state space and its valid moves where $N=5$.}
 \end{figure}
 
+% ----------------------------------
+
 \subsubsection{Problem Definition}
+\label{sec:problem_definition}
 
-\textbf{State space}: Corresponds to each position in the map. Each position is represented by a State object, as shown in the UML Class diagram in Appendix \ref{sec:uml_class_diagram}.\\
+\paragraph{State space} Corresponds to each position in the map. Each position is represented by a State object, as shown in the UML Class diagram in Appendix \ref{sec:uml_class_diagram}. The state space as a whole is implemented with a \textit{LinkedList} of \textit{LinkesLists} of \textit{Nodes}: \textit{``LinkedList<LinkedList<State>> world''}, as shown in Figure \ref{fig:state_space}.
 
-\textbf{Initial State}: Corresponds to the starting point defined by the user input. It is used to create the root node of the search tree. It is impossible to start on the pole (0,0).\\
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{report/figures/world.png}
+\caption{\label{fig:state_space}An example of the implementation of a state space using \textit{LinkedLists} where $N=5$. The initial state $S$ can be seen at \textit{2,0}, the goal state $G$ at \textit{(2,135)}, an obstacle $X$ at \textit{(2,180}) and the pole $P$ at \textit{(0,0)}.}
+\end{figure}
 
-\textbf{Goal}: To find the route from the initial state to the goal state while avoiding obstacles. For informed search algorithms, the goal includes finding the route with the minimal path cost. The goal state is stored in the Problem object, as shown in Appendix \ref{sec:uml_class_diagram}.\\
+\paragraph{Initial State} Corresponds to the starting point defined by the user input, which is used to create the root node of the search tree. For example, in the implementation in Figure \ref{fig:state_space}, the initial state can be found at \textit{(2, 0)=S}. The goal state is stored in the Problem object, as shown in Appendix \ref{sec:uml_class_diagram}. It is impossible to start from the pole (0,0).
 
-\textbf{Cost}: The cost to move across parallels ($N \rightarrow N+1$ or $N \rightarrow N-1$) is 1. The cost to move across meridians ($+45\degree$ or $-45\degree$) is $(2*\pi*d) / 8$.\\
+\paragraph{Goal} To find the route from the initial state to the goal state while avoiding obstacles. For informed search algorithms, the goal includes finding the route with the minimal path cost. It is impossible for a goal state to be in the pole (0,0). %The goal state is stored in the Problem object, as shown in Appendix \ref{sec:uml_class_diagram}.\\
 
-\textbf{Successor Function}: The successor function generates the valid nodes that are adjacent to the current node, which are added to an ArrayList before being added to the frontier.
+\paragraph{Successor Function} The successor function (see listing below) generates a set of all the valid nodes that are adjacent to the current node, which are added to an \textit{ArrayList} before being added to the frontier. Additionally, it checks that no invalid moves are added to the \textit{ArrayList}.
+
+\lstinputlisting[label={lst:successor},language=Java]{report/listings/successor.java}
+
+\paragraph{Actions} The flight can move in one of four directions at a time (see Figure \ref{fig:map}). It can move East (H90) by adding 45\degree to its angle, move West (H270) by subtracting 45\degree from its angle, move North (H360) towards the pole (0,0) by subtracting 1 to its current parallel, or move South (H180) towards the extremity of the world by adding 1 to its current parallel. It cannot move to/through the pole \textit{(0,0)}, to a parallel bigger than $N$, or to an obstacle.
+
+\paragraph{Path Cost} Because the state space is a circular map, there are two different costs. The cost to move across parallels ($N \rightarrow N+1$ or $N \rightarrow N-1$) is 1, while the cost to move across meridians ($+45\degree$ or $-45\degree$) is $(2*\pi*d) / 8$. The cost is stored in the \textit{pathCost} of the \textit{Node} class.
+
+% ----------------------------------
 
 \subsubsection{System Architecture}
 
 \paragraph{Class Design}
 
-The system is designed with scalability and simplicity in mind. In order to avoid unnecessary code duplication, abstract classes are used to group common methods between the different search algorithms. An abstract class called \textit{GeneralSearch} organises all the general search methods such as \textit{successor}, \textit{goalTest}, \textit{isNodeInExploredSet} or \textit{findSolutionPathCost} into a single class. Abstract methods, such as \textit{makeNode}, which differ in implementation between informed and uninformed search algorithms, are then defined in this class and act as a template to implement in classes that extend \textit{GeneralSearch}.\\
+The system is designed with scalability and simplicity in mind. Therefore, the foundation of the system was built around the general search algorithm (see Figure \ref{fig:general_algorithm}) provided in the lecture slides \cite{generalsearchalg}.
 
-Next, two abstract classes, \textit{InformedSearch} and \textit{UninformedSearch}, extend \textit{GeneralSearch}. In a similar fashion, they contain methods common to all concrete search algorithms, such as \textit{treeSearch}, \textit{expand} and \textit{removeFrontierNode}. They also override the \textit{makeNode} method declared in the \textit{GeneralSearch} abstract class, and declare their own abstract methods that will be extended by the concrete classes.\\
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{report/figures/general_search_algorithm.png}
+\caption{\label{fig:general_algorithm}The general search algorithm \cite{generalsearchalg}}
+\end{figure}
 
-Finally, concrete classes extending the abstract classes are created. The \textit{BFS} and \textit{DFS} classes extend the \textit{UninformedSearch} abstract class, while the \textit{BestF} and \textit{AStar} classes extend the \textit{InformedSearch} abstract class. For a more detailed representation of the class inheritance used, see Appendix \ref{sec:uml_class_diagram}.\\
+Because the search algorithms implemented share many similarities with the general search algorithm, abstract classes are used to avoid unnecessary code duplication by grouping common methods between the different search algorithms. An overview of the class design can be found in the UML Class Diagram in Appendix \ref{sec:uml_class_diagram}. A top-level abstract class called \textit{GeneralSearch} organises all the general search methods such as \textit{successor()}, \textit{goalTest()}, \textit{isNodeInExploredSet()} or \textit{findSolutionPathCost()} into a single class. Abstract methods, such as \textit{makeNode}, which differ in implementation between informed and uninformed search algorithms, are defined in this class and act as a template to implement in classes that extend \textit{GeneralSearch}.\\
+
+Next, two abstract classes, \textit{InformedSearch} and \textit{UninformedSearch}, extend \textit{GeneralSearch} and its methods. In a similar fashion, they contain methods common to all concrete search algorithms, such as \textit{treeSearch}, \textit{expand} and \textit{removeFrontierNode}. They also override the \textit{makeNode} method declared in the \textit{GeneralSearch} abstract class, and declare their own abstract methods that will be extended by the concrete classes.\\
+
+Finally, concrete classes extending the abstract classes are created. The \textit{BFS} and \textit{DFS} classes extend the \textit{UninformedSearch} abstract class, while the \textit{BestF} and \textit{AStar} classes extend the \textit{InformedSearch} abstract class.
 
 \paragraph{Data Structures}
 
-Java offers a wide variety of data structures to use. The pros and the cons were weighed to choose which data structure to use for each aspect of the program. Concerning the frontier, two data structures are used. For uninformed search, a LinkedList is used, while for informed search, a PriorityQueue is used. LinkedLists are used because manipulation operation of adding/removing Nodes to/from the data structure is much cheaper than ArrayLists manipulation, which requires the entire array to be copied over to a new one to add or remove a single Node.\\
+Java offers a wide variety of data structures to use. The pros and the cons were weighed to choose which data structure to use for each aspect of the program. Concerning the frontier, two data structures are used. For uninformed search, a \textit{LinkedList} is used, while for informed search, a \textit{PriorityQueue} is used. \textit{LinkedLists} are used because manipulation operations for adding/removing Nodes to/from the data structure are much cheaper than \textit{ArrayLists} manipulations \cite{diffLLAL}.\\
 
-Additionally, custom objects are created to represent different aspects of the data and facilitate access. A Node object holds crucial information such as a pointer to a parent node (which are very useful when retracing the route found and calculating the route's cost), an action (H90, H180, H270, H360), a path cost, a depth and a State. States represent a location on the state space, including a parallel, an angle, an index to easily access it in the world, and a status to represent if it is the initial state (S), the goal state (G), the pole (0,0) (P) or an obstacle (X).
+Additionally, custom classes are created to easily store and access different aspects of the data. A \textit{Node} object holds crucial information such as:
+\begin{itemize}
+    \item a pointer to a parent Node, which is used to retrace the route found and to calculate the route's cost,
+    \item an action (H90, H180, H270, H360),
+    \item a path cost,
+    \item a depth,
+    \item a \textit{State} (custom class).
+\end{itemize}
 
-\paragraph{Map}
+States represent a location on the state space, including a parallel, an angle, an index to easily access it in the world, and a status to represent if the location is the initial state (S), the goal state (G), the pole (P) or an obstacle (X) (see Figure \ref{fig:map}).
 
-The world is represented as a LinkedList of Linkedlist of States.
+% ----------------------------------
 
-\paragraph{Javadocs}
+\subsubsection{Uninformed Search}
 
-The entire system is covered by Javadoc comments. They can be compiled using the command below and opening the \textit{javadoc/index.html} file in a web browser:\\
+todo
+
+% ----------------------------------
+
+\subsubsection{Uninformed Search}
+
+todo
+
+% ----------------------------------
+
+\subsubsection{Additional Features}
+
+\paragraph{Invalid Input Security} Robust checks are carried out to ensure that correct arguments are passed when running the program. These include grounding the flight if the initial state S = (0,0) or if the goal state G = (0,0)\footnote{This includes any meridian located on parallel $d=0$ e.g. (0,45) is an invalid location.}.
+
+\paragraph{Javadocs} The entire system is covered by Javadoc \cite{javadoc} comments. They can be compiled using the command below and opening the \textit{javadoc/index.html} file in a web browser:\\
 
 \textit{javadoc -d javadoc A1src/*.java}
 
-\begin{comment}
-Key elements of implementation including any data structure or algorithm used if applicable. Remember to justify the mechanisms you have implemented as part of your solution.\\
-
-Please do not include screenshots of your code, pseudo code can be used instead with relevant references to where this can be found in your code.\\
-
-Motivate your choices: this can be done by considering why as well as how you have implemented the system in the way you did.
-\end{comment}
+% ----------------------------------
 
 \subsection{Evaluation}
 
@@ -199,13 +238,6 @@ This section is about correctness of the system. Include a table or a list of te
     \item Graphical representation of these working examples (etc)
 \end{itemize}
 
-% ---------------------------------------- 4 - CONCLUSION ------------------------------------------ 
-
-\section{Conclusion}
-\label{sec:conclusion}
-
-List all the references you cite in your report and code.
-
 % -------------------------------------------- APPENDIX -------------------------------------------- 
 
 \newpage
@@ -216,11 +248,38 @@ List all the references you cite in your report and code.
 
 The UML Class Diagram of the program, generated using yWorks \cite{yworks}.
 
-\begin{sidewaysfigure}[ht]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{UML/UML_class_diagram.png}
+\includegraphics[width=0.99\textwidth]{UML/UML_class_diagram.png}
 {\label{fig:uml_class_diagram}}
-\end{sidewaysfigure}
+\end{figure}
+
+\newpage
+\section{Path length across different algorithms}
+\label{sec:appendix-path-length}
+\input{report/tables/path_length.tex}
+
+\section{Path cost across different algorithms}
+\label{sec:appendix-path-cost}
+\input{report/tables/path_cost.tex}
+
+\newpage
+\section{Numbers of nodes expanded across different algorithms}
+\label{sec:appendix-nodes-expanded}
+\input{report/tables/nodes_expanded.tex}
+
+\section{Runtime across different algorithms}
+\label{sec:appendix-runtime}
+\input{report/tables/runtime.tex}
+
+\newpage
+\section{Node depth across different algorithms}
+\label{sec:appendix-node-depth}
+\input{report/tables/node_depth.tex}
+
+\section{Number of nodes created across different algorithms}
+\label{sec:appendix-nodes-created}
+\input{report/tables/nodes_created.tex}
 
 \newpage
 \bibliographystyle{plain}
