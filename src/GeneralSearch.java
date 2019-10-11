@@ -257,8 +257,9 @@ abstract class GeneralSearch {
         System.out.println("Path followed (" + solutionPath.size() + " states): " + solutionPath.toString());
         double pathCost = Math.round(findSolutionPathCost(currentNode) * 1000.0) / 1000.0;
         System.out.println("Solution path cost: " + pathCost);
-        System.out.println("\nNodes created: " + nodesCreated);
-        System.out.println(getExploredSet().size() + "/" + (((problem.getN() - 1) * 8) - 1) + " states expanded: " + getExploredSet().toString());
+        System.out.println("\nCurrent node depth: " + currentNode.getDepth());
+        System.out.println("Nodes created: " + nodesCreated);
+        System.out.println(getExploredSet().size() + " states expanded: " + getExploredSet().toString());
     }
 
     /* Getters & Setters ******************************************************************************************** */
