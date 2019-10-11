@@ -136,7 +136,7 @@ public class A1Main {
         }
 
         // Print the entire world.
-        Helper.printWorld(world);
+        //Helper.printWorld(world);
 
         // Start measuring time.
         startTime = System.nanoTime();

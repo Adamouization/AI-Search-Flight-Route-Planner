@@ -252,7 +252,8 @@ abstract class GeneralSearch {
      */
     public void printSolution(Node currentNode, Problem problem, double runTime) {
         System.out.println("\nPath found using " + problem.getSearchType() + " in " + runTime + " ms!");
-        System.out.println("Flight instructions: " + findFlightInstructions(currentNode).toString());
+        ArrayList<String> flightInstructions = findFlightInstructions(currentNode);
+        System.out.println("Flight instructions (" + flightInstructions.size() + ") : " + flightInstructions.toString());
         ArrayList<String> solutionPath = findSolutionPath(currentNode);
         System.out.println("Path followed (" + solutionPath.size() + " states): " + solutionPath.toString());
         double pathCost = Math.round(findSolutionPathCost(currentNode) * 1000.0) / 1000.0;
