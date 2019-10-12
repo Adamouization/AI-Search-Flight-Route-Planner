@@ -169,7 +169,7 @@ The system is designed with scalability and simplicity in mind. Therefore, the f
 \caption{\label{fig:general_algorithm}The general search algorithm \cite{generalsearchalg}}
 \end{figure}
 
-Because the search algorithms implemented share many similarities with the general search algorithm, abstract classes are used to avoid unnecessary code duplication by grouping common methods between the different search algorithms. An overview of the class design can be found in the UML Class Diagram in Appendix \ref{sec:uml_class_diagram}. A top-level abstract class called \textit{GeneralSearch} organises all the general search methods such as \textit{successor()}, \textit{goalTest()}, \textit{isNodeInExploredSet()} or \textit{findSolutionPathCost()} into a single class. Abstract methods, such as \textit{makeNode}, which differ in implementation between informed and uninformed search algorithms, are defined in this class and act as a template to implement in classes that extend \textit{GeneralSearch}.\\
+Because the search algorithms implemented share many similarities with the general search algorithm, abstract classes are used to avoid unnecessary code duplication by grouping common methods between the different search algorithms. An overview of the class design can be found in the UML Class Diagram in Appendix \ref{sec:uml_class_diagram}. A top-level abstract class called \textit{GeneralSearch} organises all the general search methods such as \textit{successor()}, \textit{goalTest()}, \textit{isNodeInExploredSet()} or \textit{findSolutionPathCost()} into a single class. Abstract methods, such as \textit{makeNode}, are defined in this class and act as a template to implement in classes that extend \textit{GeneralSearch}.\\
 
 Next, two abstract classes, \textit{InformedSearch} and \textit{UninformedSearch}, extend \textit{GeneralSearch} and its methods. In a similar fashion, they contain methods common to all concrete search algorithms, such as \textit{treeSearch}, \textit{expand} and \textit{removeFrontierNode}. They also override the \textit{makeNode} method declared in the \textit{GeneralSearch} abstract class, and declare their own abstract methods that will be extended by the concrete classes.\\
 
@@ -181,11 +181,11 @@ Java offers a wide variety of data structures to use. The pros and the cons were
 
 Additionally, custom classes are created to easily store and access different aspects of the data. A \textit{Node} object holds crucial information such as:
 \begin{itemize}
-    \item a pointer to a parent Node, which is used to retrace the route found and to calculate the route's cost,
-    \item an action (H90, H180, H270, H360),
-    \item a path cost,
-    \item a depth,
-    \item a \textit{State} (custom class).
+    \item A pointer to a parent Node, which is used to retrace the route found from the current node (once the goal state is reached) all the way back to the root node. It is also used to calculate the route's cost.
+    \item An action (H90, H180, H270, H360).
+    \item A path cost.
+    \item A depth.
+    \item A \textit{State} (custom class).
 \end{itemize}
 
 States represent a location on the state space, including a parallel, an angle, an index to easily access it in the world, and a status to represent if the location is the initial state (S), the goal state (G), the pole (P) or an obstacle (X) (see Figure \ref{fig:map}).
@@ -194,13 +194,29 @@ States represent a location on the state space, including a parallel, an angle, 
 
 \subsubsection{Uninformed Search}
 
-todo
+The two uninformed search algorithms implemented are Breadth-First Search and Depth-First Search. Observing their concrete implementations, they both extend the \textit{UninformedSearch} abstract class, which in turn extends the \textit{GeneralSearch} abstract class. This is due to the fact that both algorithms are almost identical. Indeed, they only differ in terms of order in which the successor nodes are added to the frontier, as shown in the code listing below. BFS implements a FIFO-type\footnote{First-In First-Out} of queue, where the nodes are inserted at the end of the frontier, whereas DFS implements a LIFO-type\footnote{Last-In First-Out} of queue, where the nodes are inserted at the front of the frontier.
+
+\lstinputlisting[label={lst:dfs_bfs},language=Java]{report/listings/dfs_bfs.java}
+
+Because uninformed search algorithms can be classified as ``blind searches'' as they do not calculate cost paths and heuristics to determine the next move, new states are added in the following default order: East/West/North/South. Following this default order ensures consistency across all evaluations of the algorithms in Section \ref{sec:evaluation}.
 
 % ----------------------------------
 
-\subsubsection{Uninformed Search}
+\subsubsection{Informed Search}
 
-todo
+The two uninformed search algorithms implemented are Best-First Search and A* Search. In a similar fashion to the informed search algorithms, there is very little difference between the two implementations. Both use \textit{PriorityQueues} as a frontier, and retrieve the next highest-priority item from the frontier using the \textit{frontier.poll()} method, and both extend the \textit{InformedSearch} abstract class, which in turn extends the \textit{GeneralSearch} abstract class. To calculate the distance from the current node to the goal node, Euclidian distance in polar coordinates is used \cite{polarcoordinateseuclidian}:
+
+\begin{equation}
+    \sqrt{d_{A}^{2} + d_{B}^{2} - 2\cdot d_A\cdot d_B \cdot cos(\alpha_A - \alpha_B)}
+\end{equation}
+
+The two algorithms only differ in their heuristic and their implementation of the \textit{extend()} method. Indeed, A*'s heuristic assigns the sum $f(n) = g(n)+h(n)$ of the path cost so far $g(n)$ and the Euclidian distance in polar coordinates from the current note to the goal $h(n)$, whereas Best-First Search only uses the path cost so far $f(n)=g(n)$. The difference can be seen in the listing below:
+
+\lstinputlisting[label={lst:heuristics},language=Java]{report/listings/heuristics.java}
+
+A* differs from Best-First Search as well by removing Nodes in the frontier that have a higher cost than new Nodes, as betrayed in the listing below. This way, it ensure to find cheaper paths.
+
+\lstinputlisting[label={lst:astar_expand},language=Java]{report/listings/astar_expand.java}
 
 % ----------------------------------
 
@@ -208,35 +224,101 @@ todo
 
 \paragraph{Invalid Input Security} Robust checks are carried out to ensure that correct arguments are passed when running the program. These include grounding the flight if the initial state S = (0,0) or if the goal state G = (0,0)\footnote{This includes any meridian located on parallel $d=0$ e.g. (0,45) is an invalid location.}.
 
-\paragraph{Javadocs} The entire system is covered by Javadoc \cite{javadoc} comments. They can be compiled using the command below and opening the \textit{javadoc/index.html} file in a web browser:\\
+\paragraph{Javadocs} The entire system is covered with Javadoc \cite{javadoc} comments. They can be compiled using the command below and opening the \textit{javadoc/index.html} file in a web browser:\\
 
 \textit{javadoc -d javadoc A1src/*.java}
 
 % ----------------------------------
 
 \subsection{Evaluation}
+\label{sec:evaluation}
 
-todo
+Starting with the evaluation of uninformed search algorithms, the major difference lies within the length of the path found, as seen in Figure \ref{fig:path_length}.
 
-\begin{comment}
-This section is about performance of the system. A critical analysis of the functionalities of your system and what can be improved. The role of this section is to show and demonstrate the qualities and limitations of your system such as how effectively or efficiently the system works under certain conditions.\\
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{report/figures/path_length.png}
+\caption{\label{fig:path_length}The number of nodes created for different algorithms. See Appendix \ref{sec:appendix-path-length} for detailed results.}
+\end{figure}
 
-Depending on the type of assignment, this section should include results of any evaluation performed at a large scale, for example a table/graph showing performance results.\\
+Indeed, DFS often finds the longest path possible of all the algorithms, which leads to it having the longest path cost as well (see Figure \ref{fig:path_cost}). This is due to the fact that DFS favours depth by exploring each child node exhaustively until it reaches a leaf node: when a goal state is found, it may not be the optimal state. On the other hand, BFS explores each node on the current depth of the search tree before going one level deeper. Therefore, it is more likely to find an optimal path because once a goal state is found, all the shallower nodes have already been explored.
 
-Pros and Cons of your approach should also be discussed, and any component that could be improved.\\
-\end{comment}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{report/figures/path_cost.png}
+\caption{\label{fig:path_cost}The path costs of different algorithms. See Appendix \ref{sec:appendix-path-cost} for detailed results.}
+\end{figure}
+
+As a result of this, DFS often expands less nodes than BFS (see Figure \ref{fig:nodes_expanded}) and the goal node is much deeper than BFS's goal node (see Figure \ref{fig:node_depth}).\\
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{report/figures/nodes_expanded.png}
+\caption{\label{fig:nodes_expanded}The number of nodes created for different algorithms. See Appendix \ref{sec:appendix-nodes-expanded} for detailed results.}
+\end{figure}
+
+Looking at informed search algorithms, Best-First seems to expand less nodes than A*, as seen in Figure \ref{fig:nodes_expanded}. This is due to the fact that Best-First's objective is to reach the goal state as quickly as possible without considering the cost of the current path. Therefore, A* may expand more nodes, but it is the algorithm that finds the cheapest path from initial to goal state of all algorithms, as seen in Figure \ref{fig:path_cost}. In large maps, path length does not matter as much as path cost, since A*'s path is longer than most but always cheaper (recall that crossing parallels is cheaper than crossing meridians, especially when $d$ is big). Perhaps other distance functions could be used to improve the path cost, such as the Manhattan distance, or a combination of multiple distance metrics.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{report/figures/node_depth.png}
+\caption{\label{fig:node_depth}The node depth of different algorithms. See Appendix \ref{sec:appendix-node-depth} for detailed results.}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{report/figures/nodes_created.png}
+\caption{\label{fig:nodes_created}The number of nodes created for different algorithms. See Appendix \ref{sec:appendix-nodes-created} for detailed results.}
+\end{figure}
+
+Run configurations \textit{iv} and \textit{vii} were excluded from the evaluation graphs since no path can be found, as the goal states are located at the pole ($d=0$).\\
+
+Runtime was also calculated, but didn't prove to be relevant due to the small size of the problems used to evaluate the search algorithms. They can be found in Appendix \ref{sec:appendix-runtime}.
 
 % -------------------------------------- 3 - TEST SUMMARY ------------------------------------------ 
 \section{Test Summary}
 \label{sec:test-summary}
 
-This section is about correctness of the system. Include a table or a list of tests performed, with input and output where appropriate. The role of this part is to show that your system is working correctly. You could also include:
-
+To test the algorithms, a simple problem is used, where:
 \begin{itemize}
-    \item Screenshots of the outputs
-    \item Small working examples
-    \item Graphical representation of these working examples (etc)
+    \item $N=4$
+    \item \textit{S = (1,45)}
+    \item \textit{G = (2,315)}
 \end{itemize}
+
+\subsection{Breadth-First Search}
+
+The expected flight path is \textit{[H270,H270,H180]}. Current nodes being expanded should be added to the explored set, while new nodes should be added at the end of the frontier. The console output below meets the requirements, which shows that Breadth-First Search works as expected.
+
+\lstinputlisting[label={lst:astar},language=Java]{report/correctness_testing/bfs.txt}
+
+\subsection{Depth-First Search}
+
+The expected flight path is different to \textit{[H270,H270,H180]} since DFS is not optimal. Current nodes being expanded should be added to the explored set, while new nodes should be added at the front of the frontier. The console output below meets the requirements, which shows that Depth-First Search works as expected.
+
+\lstinputlisting[label={lst:astar},language=Java]{report/correctness_testing/dfs.txt}
+
+\subsection{Best-First Search}
+
+The expected flight path is \textit{[H270,H270,H180]}. Current nodes being expanded should be added to the explored set, while new nodes should be added at in the frontier\footnote{When printing the \textit{PriorityQueue}, the only sorted object is the first one, so the entire frontier should not be taken into account.} based on their estimate distance to goal. The console output below meets the requirements, which shows that Best-First Search works as expected.
+
+\lstinputlisting[label={lst:astar},language=Java]{report/correctness_testing/bestF.txt}
+
+\subsection{A* Search}
+
+The expected flight path is \textit{[H270,H270,H180]}. Current nodes being expanded should be added to the explored set, while new nodes should be added at in the frontier\footnote{When printing the \textit{PriorityQueue}, the only sorted object is the first one, so the entire frontier should not be taken into account.} based on their estimate distance to goal on top of the path cost so far. The console output below meets the requirements, which shows that Best-First Search works as expected.
+
+\lstinputlisting[label={lst:astar},language=Java]{report/correctness_testing/Astar.txt}
+
+\subsection{Obstacles}
+
+The same problem is tested using BFS with an obstacle at (1,90). The following console output shows that the BFS search algorithm avoids going going to (1,90), instead taking a longer path.
+
+\lstinputlisting[label={lst:astar},language=Java]{report/correctness_testing/1_obstacle.txt}
+
+If the initial state is surrounded by obstacles, then the program should not be able to find a solution, as shown by the console output below.
+
+\lstinputlisting[label={lst:astar},language=Java]{report/correctness_testing/impossible.txt}
 
 % -------------------------------------------- APPENDIX -------------------------------------------- 
 
@@ -268,18 +350,18 @@ The UML Class Diagram of the program, generated using yWorks \cite{yworks}.
 \label{sec:appendix-nodes-expanded}
 \input{report/tables/nodes_expanded.tex}
 
-\section{Runtime across different algorithms}
-\label{sec:appendix-runtime}
-\input{report/tables/runtime.tex}
-
-\newpage
 \section{Node depth across different algorithms}
 \label{sec:appendix-node-depth}
 \input{report/tables/node_depth.tex}
 
+\newpage
 \section{Number of nodes created across different algorithms}
 \label{sec:appendix-nodes-created}
 \input{report/tables/nodes_created.tex}
+
+\section{Runtime across different algorithms}
+\label{sec:appendix-runtime}
+\input{report/tables/runtime.tex}
 
 \newpage
 \bibliographystyle{plain}

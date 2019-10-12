@@ -1,0 +1,10 @@
+Search type: BFS
+Size of world N: 4
+Start point: (1, 45)
+End point: (3, 225)
+Obstacles located at: [(1, 90), (1, 0), (2, 45)]
+
+[...]
+
+No path from (1, 45) to (3, 225) found!
+Try removing obstacles to allow the algorithm to find a route.
