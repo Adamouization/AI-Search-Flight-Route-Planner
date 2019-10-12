@@ -1,0 +1,42 @@
+Search type: BFS
+Size of world N: 4
+Start point: (1, 45)
+End point: (3, 225)
+Obstacles located at: [(1, 90), (1, 0), (2, 45)]
+
+Starting Breadth-First Search...
+Iteration #1 -------------------------
+Current node: (1, 45)
+Frontier: [(0, 45)]
+Explored States: [(1, 45)]
+Iteration #2 -------------------------
+Current node: (0, 45)
+Frontier: [(0, 90)]
+Explored States: [(1, 45), (0, 45)]
+Iteration #3 -------------------------
+Current node: (0, 90)
+Frontier: [(0, 135)]
+Explored States: [(1, 45), (0, 45), (0, 90)]
+Iteration #4 -------------------------
+Current node: (0, 135)
+Frontier: [(0, 180)]
+Explored States: [(1, 45), (0, 45), (0, 90), (0, 135)]
+Iteration #5 -------------------------
+Current node: (0, 180)
+Frontier: [(0, 225)]
+Explored States: [(1, 45), (0, 45), (0, 90), (0, 135), (0, 180)]
+Iteration #6 -------------------------
+Current node: (0, 225)
+Frontier: [(0, 270)]
+Explored States: [(1, 45), (0, 45), (0, 90), (0, 135), (0, 180), (0, 225)]
+Iteration #7 -------------------------
+Current node: (0, 270)
+Frontier: [(0, 315)]
+Explored States: [(1, 45), (0, 45), (0, 90), (0, 135), (0, 180), (0, 225), (0, 270)]
+Iteration #8 -------------------------
+Current node: (0, 315)
+Frontier: []
+Explored States: [(1, 45), (0, 45), (0, 90), (0, 135), (0, 180), (0, 225), (0, 270), (0, 315)]
+
+No path from (1, 45) to (3, 225) found!
+Try removing obstacles to allow the algorithm to find a route.

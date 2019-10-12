@@ -1,8 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="2 obstacles" type="Application" factoryName="Application" folderName="Obstacles">
+    <output_file path="$PROJECT_DIR$/results/obstacles/2_obstacles.txt" is_save="true" />
     <option name="MAIN_CLASS_NAME" value="A1Main" />
     <module name="CS5011-A1-Search-Flight-Route-Planner" />
-    <option name="PROGRAM_PARAMETERS" value="BFS 4 1,45 3,225 1,90 1,0" />
+    <option name="PROGRAM_PARAMETERS" value="BFS 4 1,45 2,315 1,90 1,0" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
