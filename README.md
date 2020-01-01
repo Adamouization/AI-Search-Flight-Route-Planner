@@ -41,5 +41,5 @@ Examples:
 ## Contact
 * email: adam@jaamour.com
 * LinkedIn: [www.linkedin.com/in/adamjaamour](https://www.linkedin.com/in/adamjaamour/)
-* website: [www.adam.jaamour.com](www.adam.jaamour.com)
+* website: www.adam.jaamour.com
 * twitter: [@Adamouization](https://twitter.com/Adamouization)
