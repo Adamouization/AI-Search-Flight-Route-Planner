@@ -1,4 +1,4 @@
-# AI-Search-Flight-Route-Planner
+# AI-Search-Flight-Route-Planner [![HitCount](http://hits.dwyl.io/Adamouization/AI-Search-Flight-Route-Planner.svg)](http://hits.dwyl.io/Adamouization/AI-Search-Flight-Route-Planner) [![GitHub license](https://img.shields.io/github/license/Adamouization/AI-Search-Flight-Route-Planner)](https://github.com/Adamouization/AI-Search-Flight-Route-Planner/blob/master/LICENSE)
 
 Implementation and evaluation of a number of AI search algorithms applied to the task of a flight route planner. Search algorithms include Breadth-First Search, Depth-First Search, Best-First Search and A* Search.
 
