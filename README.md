@@ -2,6 +2,8 @@
 
 Implementation and evaluation of a number of AI search algorithms applied to the task of a flight route planner. Search algorithms include Breadth-First Search, Depth-First Search, Best-First Search and A* Search.
 
+The report, including a summary of features implemented, design & implementation decisions, evaluation and testing, can be read [here](https://github.com/Adamouization/AI-Search-Flight-Route-Planner/blob/master/report/report.pdf).
+
 ## Installation
 
 1. Clone the project: `git clone https://github.com/Adamouization/AI-Search-Flight-Route-Planner`
